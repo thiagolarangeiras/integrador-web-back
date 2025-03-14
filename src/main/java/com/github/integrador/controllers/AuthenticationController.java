@@ -1,4 +1,4 @@
-package com.controlis.salus.controllers;
+package com.github.integrador.controllers;
 
 import com.controlis.salus.dtos.LoginRequestDto;
 import com.controlis.salus.dtos.UserInsertDto;

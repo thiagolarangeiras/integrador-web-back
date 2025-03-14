@@ -1,8 +1,8 @@
 package com.github.integrador.models;
 
-import com.controlis.salus.dtos.UserInsertDto;
-import com.controlis.salus.dtos.UserReturnDto;
-import com.controlis.salus.models.enums.UserType;
+import com.github.integrador.dtos.UserInsertDto;
+import com.github.integrador.dtos.UserReturnDto;
+import com.github.integrador.models.enums.UserType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,8 +1,8 @@
 package com.github.integrador.config;
 
-import com.controlis.salus.models.User;
-import com.controlis.salus.repositories.UserRepository;
-import com.controlis.salus.services.TokenService;
+import com.github.integrador.models.User;
+import com.github.integrador.repositories.UserRepository;
+import com.github.integrador.services.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

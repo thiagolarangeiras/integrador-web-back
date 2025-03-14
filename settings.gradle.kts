@@ -1,1 +1,1 @@
-rootProject.name = "projeto-integrador-web"
+rootProject.name = "integrador-web"

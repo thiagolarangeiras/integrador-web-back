@@ -68,7 +68,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/*").permitAll()
                         .requestMatchers("/ajuda").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll() // deixar assim para teste apenas depois mudar o permitall() por .authenticated()
                 )
                 .build();
     }

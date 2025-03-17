@@ -1,4 +1,4 @@
-package com.github.integrador.config;
+package com.github.integrador.auth;
 
 import com.github.integrador.models.User;
 import com.github.integrador.repositories.UserRepository;

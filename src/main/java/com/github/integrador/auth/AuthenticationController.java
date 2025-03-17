@@ -1,9 +1,5 @@
 package com.github.integrador.auth;
 
-import com.controlis.salus.dtos.LoginRequestDto;
-import com.controlis.salus.dtos.UserInsertDto;
-import com.controlis.salus.dtos.UserReturnDto;
-import com.controlis.salus.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +23,7 @@ public class AuthenticationController {
 
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserReturnDto register(@RequestBody @Valid UserInsertDto dto) {
+    public UserGetDto register(@RequestBody @Valid UserPostDto dto) {
         return authenticationService.saveUser(dto);
     }
 }

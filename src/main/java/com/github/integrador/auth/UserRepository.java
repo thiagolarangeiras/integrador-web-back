@@ -1,6 +1,5 @@
-package com.github.integrador.repositories;
+package com.github.integrador.auth;
 
-import com.github.integrador.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

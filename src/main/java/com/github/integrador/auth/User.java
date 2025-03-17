@@ -1,8 +1,5 @@
-package com.github.integrador.models;
+package com.github.integrador.auth;
 
-import com.github.integrador.dtos.UserInsertDto;
-import com.github.integrador.dtos.UserReturnDto;
-import com.github.integrador.models.enums.UserType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,7 +31,7 @@ public class User implements UserDetails {
     private String password;
     private String completeName;
     private Date birthDate;
-    private UserType type;
+    private Integer type;
     private Set<String> roles = new HashSet<>();
 
     @Override
@@ -43,8 +40,8 @@ public class User implements UserDetails {
     }
 
     //Mappers
-    public static UserReturnDto convertEntityToDto(User user) {
-        return new UserReturnDto(
+    public static UserGetDto convertEntityToDto(User user) {
+        return new UserGetDto(
                 user.getId(),
                 user.getUsername(),
                 user.getEmail(),
@@ -54,7 +51,7 @@ public class User implements UserDetails {
         );
     }
 
-    public static User convertDtoToEntity(UserInsertDto dto) {
+    public static User convertDtoToEntity(UserPostDto dto) {
         return User.builder()
                 .username(dto.username())
                 .email(dto.email())

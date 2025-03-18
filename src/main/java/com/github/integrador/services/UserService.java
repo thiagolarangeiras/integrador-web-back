@@ -1,5 +1,11 @@
-package com.github.integrador.auth;
+package com.github.integrador.services;
 
+import com.github.integrador.auth.LoginRequestDto;
+import com.github.integrador.auth.TokenService;
+import com.github.integrador.dtos.UserGetDto;
+import com.github.integrador.dtos.UserPostDto;
+import com.github.integrador.models.User;
+import com.github.integrador.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

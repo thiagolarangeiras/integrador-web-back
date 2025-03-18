@@ -1,5 +1,7 @@
-package com.github.integrador.auth;
+package com.github.integrador.models;
 
+import com.github.integrador.dtos.UserGetDto;
+import com.github.integrador.dtos.UserPostDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,10 +30,8 @@ public class User implements UserDetails {
 
     @Column(unique = true)
     private String email;
+
     private String password;
-    private String completeName;
-    private Date birthDate;
-    private Integer type;
     private Set<String> roles = new HashSet<>();
 
     @Override
@@ -44,10 +44,7 @@ public class User implements UserDetails {
         return new UserGetDto(
                 user.getId(),
                 user.getUsername(),
-                user.getEmail(),
-                user.getCompleteName(),
-                user.getBirthDate(),
-                user.getType()
+                user.getEmail()
         );
     }
 
@@ -56,9 +53,6 @@ public class User implements UserDetails {
                 .username(dto.username())
                 .email(dto.email())
                 .password(new BCryptPasswordEncoder().encode(dto.password()))
-                .completeName(dto.completeName())
-                .birthDate(dto.birthDate())
-                .type(dto.type())
                 .roles(new HashSet<String>())
                 .build();
     }

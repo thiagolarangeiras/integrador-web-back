@@ -1,4 +1,4 @@
-package com.github.integrador.auth;
+package com.github.integrador.dtos;
 
 import lombok.Builder;
 import java.util.Date;
@@ -7,8 +7,5 @@ import java.util.Date;
 public record UserPostDto(
         String username,
         String email,
-        String password,
-        String completeName,
-        Date birthDate,
-        Integer type
+        String password
 ) { }

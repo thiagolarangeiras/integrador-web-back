@@ -1,5 +1,7 @@
 package com.github.integrador.auth;
 
+import com.github.integrador.models.User;
+import com.github.integrador.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

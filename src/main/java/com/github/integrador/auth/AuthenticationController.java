@@ -1,5 +1,8 @@
 package com.github.integrador.auth;
 
+import com.github.integrador.dtos.UserGetDto;
+import com.github.integrador.dtos.UserPostDto;
+import com.github.integrador.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "usuario")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,5 +1,9 @@
 package com.github.integrador.models;
 
+import com.github.integrador.dtos.ClienteGetDto;
+import com.github.integrador.dtos.ClientePostDto;
+import com.github.integrador.dtos.FornecedorGetDto;
+import com.github.integrador.dtos.FornecedorPostDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +13,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@Table(name = "fornecedores")
+@Table(name = "fornecedor")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,12 +23,33 @@ public class Fornecedor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String nome; //nome da empresa
-    private String cnpj;
+    private String cpfCnpj;
     private String endereco;
     private String telefone;
     private String email;
 
-    // tem que fazer a ligação many to one ou many
-    // to many, depende se o produtos vai poder ser fornecido pro mais de um (eu acho que não)
+    @OneToMany(mappedBy = "produto")
     private List<Produto> produtosFornecidos;
+
+    //Mappers
+    public static FornecedorGetDto mapToDto(Fornecedor obj) {
+        return new FornecedorGetDto(
+                obj.getId(),
+                obj.getNome(),
+                obj.getCpfCnpj(),
+                obj.getEndereco(),
+                obj.getTelefone(),
+                obj.getEmail()
+        );
+    }
+
+    public static Fornecedor mapToObj(FornecedorPostDto dto) {
+        Fornecedor fornecedor = new Fornecedor();
+        fornecedor.setNome(dto.nome());
+        fornecedor.setCpfCnpj(dto.cpfCnpj());
+        fornecedor.setEndereco(dto.endereco());
+        fornecedor.setTelefone(dto.telefone());
+        fornecedor.setEmail(dto.email());
+        return fornecedor;
+    }
 }

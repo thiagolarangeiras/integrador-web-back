@@ -1,6 +1,7 @@
 package com.github.integrador.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.integrador.dtos.*;
 import jakarta.persistence.*;
@@ -33,10 +34,10 @@ public class Cliente {
     private String email;
     private String descricao;
 
-    @ManyToOne
-    @JoinColumn(name = "idVendedor", insertable=false, updatable=false)
-    @JsonManagedReference
-    private Vendedor vendedor;
+    //@ManyToOne
+    //@JoinColumn(name = "idVendedor", insertable=false, updatable=false)
+    //@JsonIgnore
+    //private Vendedor vendedor;
 
     //Mappers
     public static ClienteGetDto mapToDto(Cliente obj) {
@@ -50,8 +51,7 @@ public class Cliente {
             obj.getEndereco(),
             obj.getTelefone(),
             obj.getEmail(),
-            obj.getDescricao(),
-            obj.getVendedor()
+            obj.getDescricao()
         );
     }
 

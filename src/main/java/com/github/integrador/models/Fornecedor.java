@@ -20,7 +20,7 @@ import java.util.List;
 @Builder
 public class Fornecedor {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome; //nome da empresa
     private String cpfCnpj;
@@ -28,7 +28,7 @@ public class Fornecedor {
     private String telefone;
     private String email;
 
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "fornecedor")
     private List<Produto> produtosFornecidos;
 
     //Mappers

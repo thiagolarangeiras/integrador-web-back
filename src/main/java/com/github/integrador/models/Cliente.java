@@ -1,5 +1,7 @@
 package com.github.integrador.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.integrador.dtos.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +20,7 @@ import java.util.HashSet;
 @Builder
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer idVendedor;
 
@@ -32,7 +34,8 @@ public class Cliente {
     private String descricao;
 
     @ManyToOne
-    @JoinColumn(name = "id_vendedor")
+    @JoinColumn(name = "idVendedor", insertable=false, updatable=false)
+    @JsonManagedReference
     private Vendedor vendedor;
 
     //Mappers
@@ -47,7 +50,8 @@ public class Cliente {
             obj.getEndereco(),
             obj.getTelefone(),
             obj.getEmail(),
-            obj.getDescricao()
+            obj.getDescricao(),
+            obj.getVendedor()
         );
     }
 

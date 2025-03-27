@@ -1,5 +1,7 @@
 package com.github.integrador.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.integrador.dtos.UserGetDto;
 import com.github.integrador.dtos.UserPostDto;
 import com.github.integrador.dtos.VendedorGetDto;
@@ -22,7 +24,7 @@ import java.util.List;
 @Builder
 public class Vendedor {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
     private String descricao;
@@ -30,8 +32,9 @@ public class Vendedor {
     private String telefone;
     private String email;
 
-    @OneToMany(mappedBy = "cliente")
-    private List<Cliente> clientesAtendidos;
+    @OneToMany(mappedBy = "vendedor")
+    @JsonBackReference
+    private List<Cliente> clientes;
 
     //Mappers
     public static VendedorGetDto mapToDto(Vendedor vend) {

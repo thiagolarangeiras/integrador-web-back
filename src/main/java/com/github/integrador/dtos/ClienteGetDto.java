@@ -1,5 +1,6 @@
 package com.github.integrador.dtos;
 
+import com.github.integrador.models.Vendedor;
 import lombok.Builder;
 
 @Builder
@@ -13,5 +14,6 @@ public record ClienteGetDto(
     String endereco,
     String telefone,
     String email,
-    String descricao
+    String descricao,
+    Vendedor vendedor
 ) { }

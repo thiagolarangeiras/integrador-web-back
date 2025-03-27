@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PedidoEntradaProduto {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer idPedidoEntrada;
-    private Integer idProduto;
+    //private Integer idPedidoEntrada;
+    //private Integer idProduto;
 
     private Integer qtde;
     private Double valorUnitario;
@@ -37,8 +37,8 @@ public class PedidoEntradaProduto {
     public static PedidoEntradaProdutoGetDto mapToDto(PedidoEntradaProduto obj) {
         return new PedidoEntradaProdutoGetDto(
             obj.getId(),
-            obj.getIdPedidoEntrada(),
-            obj.getIdProduto(),
+            1,//obj.getIdPedidoEntrada(),
+            2,//obj.getIdProduto(),
             obj.getQtde(),
             obj.getValorUnitario(),
             obj.getValorTotal()
@@ -47,8 +47,8 @@ public class PedidoEntradaProduto {
 
     public static PedidoEntradaProduto mapToObj(PedidoEntradaProdutoPostDto dto) {
         return PedidoEntradaProduto.builder()
-            .idPedidoEntrada(dto.idPedidoEntrada())
-            .idProduto(dto.idProduto())
+            //.idPedidoEntrada(dto.idPedidoEntrada())
+            //.idProduto(dto.idProduto())
             .qtde(dto.qtde())
             .valorUnitario(dto.valorUnitario())
             .valorTotal(dto.valorTotal())

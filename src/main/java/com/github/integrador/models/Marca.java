@@ -19,11 +19,11 @@ import java.util.List;
 @Builder
 public class Marca {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
 
-    @OneToMany(mappedBy = "produto")
+    @OneToMany(mappedBy = "marca")
     private List<Produto> produtos;
 
     //Mappers

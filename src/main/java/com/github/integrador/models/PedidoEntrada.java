@@ -32,9 +32,9 @@ import java.util.List;
 @Builder
 public class PedidoEntrada {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer idFornecedor;
+    //private Integer idFornecedor;
     private Double valorTotal;
     private Double valorFrete;
 
@@ -42,14 +42,14 @@ public class PedidoEntrada {
     @JoinColumn(name = "id_fornecedor")
     private Fornecedor fornecedor;
 
-    @OneToMany(mappedBy = "pedido_entrada_produto")
+    @OneToMany(mappedBy = "pedido")
     private List<PedidoEntradaProduto> produtos;
 
     //Mappers
     public static PedidoEntradaGetDto mapToDto(PedidoEntrada obj) {
         return new PedidoEntradaGetDto(
                 obj.getId(),
-                obj.getIdFornecedor(),
+                1,//obj.getIdFornecedor(),
                 obj.getValorTotal(),
                 obj.getValorFrete()
         );
@@ -57,7 +57,7 @@ public class PedidoEntrada {
 
     public static PedidoEntrada mapToObj(PedidoEntradaPostDto dto) {
         return PedidoEntrada.builder()
-                .idFornecedor(dto.idFornecedor())
+                //.idFornecedor(dto.idFornecedor())
                 .valorTotal(dto.valorTotal())
                 .valorFrete(dto.valorFrete())
                 .build();

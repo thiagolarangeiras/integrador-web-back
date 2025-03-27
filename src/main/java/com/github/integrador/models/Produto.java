@@ -16,10 +16,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Produto {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer idFornecedor;
-    private Integer idMarca;
+    //private Integer idFornecedor;
+    //private Integer idMarca;
 
     private String nome;
     private String descricao;
@@ -40,8 +40,8 @@ public class Produto {
     public static ProdutoGetDto mapToDto(Produto obj) {
         return new ProdutoGetDto(
             obj.getId(),
-            obj.getIdFornecedor(),
-            obj.getIdMarca(),
+            1,//obj.getIdFornecedor(),
+            2,//obj.getIdMarca(),
             obj.getNome(),
             obj.getDescricao(),
             obj.getValorCompra(),
@@ -53,8 +53,8 @@ public class Produto {
 
     public static Produto mapToObj(ProdutoPostDto dto) {
         return Produto.builder()
-            .idFornecedor(dto.idFornecedor())
-            .idMarca(dto.idMarca())
+            //.idFornecedor(dto.idFornecedor())
+            //.idMarca(dto.idMarca())
             .nome(dto.nome())
             .descricao(dto.descricao())
             .valorCompra(dto.valorCompra())

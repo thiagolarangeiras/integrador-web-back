@@ -1,6 +1,7 @@
 package com.github.integrador.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.github.integrador.dtos.UserGetDto;
 import com.github.integrador.dtos.UserPostDto;
@@ -33,7 +34,7 @@ public class Vendedor {
     private String email;
 
     @OneToMany(mappedBy = "vendedor")
-    @JsonBackReference
+    @JsonIgnore
     private List<Cliente> clientes;
 
     //Mappers

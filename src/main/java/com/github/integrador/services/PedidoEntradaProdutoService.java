@@ -1,7 +1,5 @@
 package com.github.integrador.services;
 
-
-
 import com.github.integrador.dtos.PedidoEntradaProdutoGetDto;
 import com.github.integrador.dtos.PedidoEntradaProdutoPostDto;
 import com.github.integrador.models.PedidoEntradaProduto;
@@ -28,20 +26,8 @@ public class PedidoEntradaProdutoService {
                 .collect(Collectors.toList());
     }
 
-    /*Pageable pageable = PageRequest.of(page, count);
-        return pedidoentradaprodutoRepo.findById(id, pageable)
-            .orElseThrow()
-            .stream()
-            .map(PedidoEntradaProduto::mapToDto)
-            .collect(Collectors.toList());
-     */
-
     public PedidoEntradaProdutoGetDto getOne (Integer id) {
         Optional<PedidoEntradaProduto> pedidoentradaprodutoOptional = pedidoentradaprodutoRepo.findById(id);
-        if (!pedidoentradaprodutoOptional.isPresent()){
-            //
-        }
-
         PedidoEntradaProduto pedidoentradaproduto = pedidoentradaprodutoOptional.orElseThrow();;
         return PedidoEntradaProduto.mapToDto(pedidoentradaproduto);
     }
@@ -53,7 +39,7 @@ public class PedidoEntradaProdutoService {
     }
 
     public PedidoEntradaProdutoGetDto patch(Integer id, PedidoEntradaProdutoPostDto dto) {
-        PedidoEntradaProduto pedidoentradaproduto  = pedidoentradaprodutoRepo.findById(id).orElseThrow();
+        PedidoEntradaProduto pedidoentradaproduto = pedidoentradaprodutoRepo.findById(id).orElseThrow();
         pedidoentradaproduto = PedidoEntradaProduto.mapToObj(dto);
         pedidoentradaproduto.setId(id);
         pedidoentradaproduto = pedidoentradaprodutoRepo.save(pedidoentradaproduto);

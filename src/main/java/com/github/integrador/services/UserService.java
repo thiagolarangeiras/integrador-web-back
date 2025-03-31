@@ -40,13 +40,13 @@ public class UserService {
     }
 
     @Transactional
-    public UserGetDto saveUser(UserPostDto dto) {
+    public UserGetDto post(UserPostDto dto) {
         User user = User.convertDtoToEntity(dto);
         user = userRepository.save(user);
         return User.convertEntityToDto(user);
     }
 
-    public List<UserGetDto> getAllUsers(int page, int count) {
+    public List<UserGetDto> getAll(int page, int count) {
         Pageable pageable = PageRequest.of(page, count);
         return userRepository.findAll(pageable).stream()
                 //.filter(user -> user.getType() == 1)
@@ -54,20 +54,20 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public UserGetDto getUserById(Integer id) {
+    public UserGetDto getOne(Integer id) {
         return userRepository.findById(id)
                 .map(User::convertEntityToDto)
                 .orElse(null);
     }
 
-    public UserGetDto updateUser(Integer id, UserPostDto dto) {
+    public UserGetDto patch(Integer id, UserPostDto dto) {
         User user = User.convertDtoToEntity(dto);
         user.setId(id);
         user = userRepository.save(user);
         return User.convertEntityToDto(user);
     }
 
-    public void deleteUser(Integer id) {
+    public void delete(Integer id) {
         userRepository.deleteById(id);
     }
 }

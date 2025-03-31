@@ -27,20 +27,8 @@ public class ProdutoService {
                 .collect(Collectors.toList());
     }
 
-    /*Pageable pageable = PageRequest.of(page, count);
-        return produtoRepo.findById(id, pageable)
-            .orElseThrow()
-            .stream()
-            .map(Produto::mapToDto)
-            .collect(Collectors.toList());
-     */
-
     public ProdutoGetDto getOne (Integer id) {
         Optional<Produto> produtoOptional = produtoRepo.findById(id);
-        if (!produtoOptional.isPresent()){
-            //
-        }
-
         Produto produto = produtoOptional.orElseThrow();;
         return Produto.mapToDto(produto);
     }

@@ -26,20 +26,8 @@ public class FornecedorService {
                 .collect(Collectors.toList());
     }
 
-    /*Pageable pageable = PageRequest.of(page, count);
-        return fornecedorRepository.findById(id, pageable)
-            .orElseThrow()
-            .stream()
-            .map(Fornecedor::mapToDto)
-            .collect(Collectors.toList());
-     */
-
     public FornecedorGetDto getOne (Integer id) {
         Optional<Fornecedor> fornecedorOptional = fornecedorRepository.findById(id);
-        if (!fornecedorOptional.isPresent()){
-            //
-        }
-
         Fornecedor fornecedor = fornecedorOptional.orElseThrow();;
         return Fornecedor.mapToDto(fornecedor);
     }

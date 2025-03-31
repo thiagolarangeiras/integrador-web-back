@@ -27,20 +27,8 @@ public class PedidoEntradaService {
                 .collect(Collectors.toList());
     }
 
-    /*Pageable pageable = PageRequest.of(page, count);
-        return pedidoentradaRepo.findById(id, pageable)
-            .orElseThrow()
-            .stream()
-            .map(PedidoEntrada::mapToDto)
-            .collect(Collectors.toList());
-     */
-
     public PedidoEntradaGetDto getOne (Integer id) {
         Optional<PedidoEntrada> pedidoentradaOptional = pedidoentradaRepo.findById(id);
-        if (!pedidoentradaOptional.isPresent()){
-            //
-        }
-
         PedidoEntrada pedidoentrada = pedidoentradaOptional.orElseThrow();;
         return PedidoEntrada.mapToDto(pedidoentrada);
     }

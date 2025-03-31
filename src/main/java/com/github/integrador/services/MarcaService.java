@@ -49,4 +49,7 @@ public class MarcaService {
         return Marca.mapToDto(marca);
     }
 
+    public void delete(Integer id) {
+        marcaRepository.deleteById(id);
+    }
 }

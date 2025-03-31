@@ -1,7 +1,7 @@
 package com.github.integrador.auth;
 
-import com.github.integrador.models.User;
-import com.github.integrador.repositories.UserRepository;
+import com.github.integrador.models.Usuario;
+import com.github.integrador.repositories.UsuarioRepo;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     TokenService tokenService;
     @Autowired
-    UserRepository userRepository;
+    UsuarioRepo usuarioRepo;
 
     @Override
     protected void doFilterInternal(
@@ -30,11 +30,11 @@ public class SecurityFilter extends OncePerRequestFilter {
         String token = this.recoverToken(request);
         if (token != null) {
             String subject = tokenService.validateToken(token);
-            User user = userRepository.findByUsername(subject).get();
+            Usuario usuario = usuarioRepo.findByUsername(subject).get();
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                    user,
-                    user.getAuthorities(),
-                    user.getAuthorities()
+                    usuario,
+                    usuario.getAuthorities(),
+                    usuario.getAuthorities()
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

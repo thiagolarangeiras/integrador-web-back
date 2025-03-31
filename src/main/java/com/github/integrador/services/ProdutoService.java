@@ -4,7 +4,7 @@ package com.github.integrador.services;
 import com.github.integrador.dtos.ProdutoGetDto;
 import com.github.integrador.dtos.ProdutoPostDto;
 import com.github.integrador.models.Produto;
-import com.github.integrador.repositories.ProdutoRepository;
+import com.github.integrador.repositories.ProdutoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProdutoService {
     @Autowired
-    private ProdutoRepository produtoRepo;
+    private ProdutoRepo produtoRepo;
 
     public List<ProdutoGetDto> getAll (int page, int count) {
         Pageable pageable = PageRequest.of(page, count);

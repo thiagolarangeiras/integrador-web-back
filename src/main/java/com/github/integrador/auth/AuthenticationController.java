@@ -2,7 +2,7 @@ package com.github.integrador.auth;
 
 import com.github.integrador.dtos.UserGetDto;
 import com.github.integrador.dtos.UserPostDto;
-import com.github.integrador.services.UserService;
+import com.github.integrador.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthenticationController {
     @Autowired
-    UserService service;
+    UsuarioService service;
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)

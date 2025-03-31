@@ -4,8 +4,8 @@ import com.github.integrador.auth.LoginRequestDto;
 import com.github.integrador.auth.TokenService;
 import com.github.integrador.dtos.UserGetDto;
 import com.github.integrador.dtos.UserPostDto;
-import com.github.integrador.models.User;
-import com.github.integrador.repositories.UserRepository;
+import com.github.integrador.models.Usuario;
+import com.github.integrador.repositories.UsuarioRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,11 +20,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService {
+public class UsuarioService {
     @Autowired
     AuthenticationManager authenticationManager;
     @Autowired
-    UserRepository userRepository;
+    UsuarioRepo usuarioRepo;
     @Autowired
     TokenService tokenService;
 
@@ -35,39 +35,39 @@ public class UserService {
                 dto.password()
         );
         Authentication auth = authenticationManager.authenticate(usernamePassword);
-        User user = (User) auth.getPrincipal();
-        return tokenService.generateToken(user.getUsername());
+        Usuario usuario = (Usuario) auth.getPrincipal();
+        return tokenService.generateToken(usuario.getUsername());
     }
 
     @Transactional
     public UserGetDto post(UserPostDto dto) {
-        User user = User.convertDtoToEntity(dto);
-        user = userRepository.save(user);
-        return User.convertEntityToDto(user);
+        Usuario usuario = Usuario.convertDtoToEntity(dto);
+        usuario = usuarioRepo.save(usuario);
+        return Usuario.convertEntityToDto(usuario);
     }
 
     public List<UserGetDto> getAll(int page, int count) {
         Pageable pageable = PageRequest.of(page, count);
-        return userRepository.findAll(pageable).stream()
+        return usuarioRepo.findAll(pageable).stream()
                 //.filter(user -> user.getType() == 1)
-                .map(User::convertEntityToDto)
+                .map(Usuario::convertEntityToDto)
                 .collect(Collectors.toList());
     }
 
     public UserGetDto getOne(Integer id) {
-        return userRepository.findById(id)
-                .map(User::convertEntityToDto)
+        return usuarioRepo.findById(id)
+                .map(Usuario::convertEntityToDto)
                 .orElse(null);
     }
 
     public UserGetDto patch(Integer id, UserPostDto dto) {
-        User user = User.convertDtoToEntity(dto);
-        user.setId(id);
-        user = userRepository.save(user);
-        return User.convertEntityToDto(user);
+        Usuario usuario = Usuario.convertDtoToEntity(dto);
+        usuario.setId(id);
+        usuario = usuarioRepo.save(usuario);
+        return Usuario.convertEntityToDto(usuario);
     }
 
     public void delete(Integer id) {
-        userRepository.deleteById(id);
+        usuarioRepo.deleteById(id);
     }
 }

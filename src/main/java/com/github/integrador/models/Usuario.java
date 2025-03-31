@@ -20,7 +20,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User implements UserDetails {
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -40,16 +40,16 @@ public class User implements UserDetails {
     }
 
     //Mappers
-    public static UserGetDto convertEntityToDto(User user) {
+    public static UserGetDto convertEntityToDto(Usuario usuario) {
         return new UserGetDto(
-                user.getId(),
-                user.getUsername(),
-                user.getEmail()
+                usuario.getId(),
+                usuario.getUsername(),
+                usuario.getEmail()
         );
     }
 
-    public static User convertDtoToEntity(UserPostDto dto) {
-        return User.builder()
+    public static Usuario convertDtoToEntity(UserPostDto dto) {
+        return Usuario.builder()
                 .username(dto.username())
                 .email(dto.email())
                 .password(new BCryptPasswordEncoder().encode(dto.password()))

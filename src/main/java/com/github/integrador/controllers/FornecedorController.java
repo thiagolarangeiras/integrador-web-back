@@ -1,22 +1,22 @@
 package com.github.integrador.controllers;
 
-import com.github.integrador.dtos.MarcaPostDto;
-import com.github.integrador.services.MarcaService;
+import com.github.integrador.dtos.FornecedorPostDto;
+import com.github.integrador.services.FornecedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/marca")
-public class MarcaController {
+@RequestMapping("/fornecedor")
+public class FornecedorController {
     @Autowired
-    private MarcaService marcaService;
+    private FornecedorService fornecedorService;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getOne(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(marcaService.getOne(id));
+        return ResponseEntity.ok(fornecedorService.getOne(id));
     }
 
     @GetMapping
@@ -25,28 +25,28 @@ public class MarcaController {
             @RequestParam int page,
             @RequestParam int count
     ) {
-        return ResponseEntity.ok(marcaService.getAll(page, count));
+        return ResponseEntity.ok(fornecedorService.getAll(page, count));
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> post(@RequestBody MarcaPostDto dto) {
-        return ResponseEntity.ok(marcaService.post(dto));
+    public ResponseEntity<Object> post(@RequestBody FornecedorPostDto dto) {
+        return ResponseEntity.ok(fornecedorService.post(dto));
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> patch(
             @PathVariable("id") Integer id,
-            @RequestBody MarcaPostDto dto
+            @RequestBody FornecedorPostDto dto
     ) {
-        return ResponseEntity.ok(marcaService.patch(id, dto));
+        return ResponseEntity.ok(fornecedorService.patch(id, dto));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> delete(@PathVariable("id") Integer id) {
-        marcaService.delete(id);
+        fornecedorService.delete(id);
         return ResponseEntity.ok().build();
     }
 }

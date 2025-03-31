@@ -2,16 +2,16 @@
     OK, falta coisa mas já para ir testando
 
 - Fornecedor
-    fazer
+    Ok
 
 - Marca
     OK, é isso
 
 - PedidoEntrada
-    fazer
+    Ok
 
 - PedidoEntradaProduto
-    fazer
+    Ok
 
 - PedidoSaida
     fazer
@@ -20,7 +20,7 @@
     fazer
 
 - Produto
-    fazer
+    Ok
 
 - User
     Esse pode deixar por enquanto

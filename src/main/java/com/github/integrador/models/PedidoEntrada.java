@@ -1,7 +1,6 @@
 package com.github.integrador.models;
 
-import com.github.integrador.dtos.MarcaGetDto;
-import com.github.integrador.dtos.MarcaPostDto;
+
 import com.github.integrador.dtos.PedidoEntradaGetDto;
 import com.github.integrador.dtos.PedidoEntradaPostDto;
 import jakarta.persistence.*;
@@ -10,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -63,3 +61,4 @@ public class PedidoEntrada {
                 .build();
     }
 }
+

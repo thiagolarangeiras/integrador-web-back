@@ -16,4 +16,10 @@ public record ClienteGetDto(
     String telefone,
     String email,
     String descricao
-) { }
+
+
+)
+
+{
+
+}

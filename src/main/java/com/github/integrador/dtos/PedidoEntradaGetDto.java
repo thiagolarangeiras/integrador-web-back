@@ -1,6 +1,6 @@
 package com.github.integrador.dtos;
 
-public record PedidoEntradaGetDto (
+public record PedidoEntradaGetDto(
     Integer id,
     Integer idFornecedor,
     Double valorTotal,

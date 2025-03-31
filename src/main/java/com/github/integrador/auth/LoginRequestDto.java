@@ -1,6 +1,6 @@
 package com.github.integrador.auth;
 
-public record LoginRequestDto(
+public record LoginRequestDto (
         String username,
         String password
 ) { }

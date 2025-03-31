@@ -23,8 +23,8 @@ public class Marca {
     private Integer id;
     private String nome;
 
-    @OneToMany(mappedBy = "marca")
-    private List<Produto> produtos;
+    //@OneToMany(mappedBy = "marca")
+    //private List<Produto> produtos;
 
     //Mappers
     public static MarcaGetDto mapToDto(Marca obj) {

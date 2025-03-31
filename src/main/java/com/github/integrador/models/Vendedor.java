@@ -33,9 +33,9 @@ public class Vendedor {
     private String telefone;
     private String email;
 
-    @OneToMany(mappedBy = "vendedor")
-    @JsonIgnore
-    private List<Cliente> clientes;
+    //@OneToMany(mappedBy = "vendedor")
+    //@JsonIgnore
+    //private List<Cliente> clientes;
 
     //Mappers
     public static VendedorGetDto mapToDto(Vendedor vend) {

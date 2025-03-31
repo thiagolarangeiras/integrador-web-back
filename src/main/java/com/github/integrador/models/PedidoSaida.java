@@ -1,7 +1,7 @@
 package com.github.integrador.models;
 
-import com.github.integrador.dtos.PedidoEntradaGetDto;
-import com.github.integrador.dtos.PedidoEntradaPostDto;
+import com.github.integrador.dtos.PedidoSaidaGetDto;
+import com.github.integrador.dtos.PedidoSaidaPostDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,41 +11,43 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Entity
-@Table(name = "pedido_entrada")
+@Table(name = "pedido_saida")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PedidoEntrada {
+public class PedidoSaida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer idFornecedor;
-
+    private Integer idCliente;
+    private Integer idVendedor;
     private Date dataCriacao;
     private Date dataVigencia;
     private Date dataEntregaPrevista;
     private Date dataEntregaReal;
     private Integer statusEntrega;
     private Integer statusPagamento;
+
     private Double valorTotal;
     private Double valorFrete;
 
     //@ManyToOne
-    //@JoinColumn(name = "id_fornecedor")
-    //private Fornecedor fornecedor;
+    //@JoinColumn(name = "id_vendedor")
+    //private Vendedor vendedor;
 
     //@OneToMany(mappedBy = "pedido")
-    //private List<PedidoEntradaProduto> produtos;
+    //private List<PedidoSaidaProduto> produtos;
 
     //@OneToMany(mappedBy = "pedido")
-    //private List<PedidoEntradaParcela> parcelas;
+    //private List<PedidoSaidaParcela> parcelas;
 
     //Mappers
-    public static PedidoEntradaGetDto mapToDto(PedidoEntrada obj) {
-        return new PedidoEntradaGetDto(
+    public static PedidoSaidaGetDto mapToDto(PedidoSaida obj) {
+        return new PedidoSaidaGetDto(
                 obj.getId(),
-                obj.getIdFornecedor(),
+                obj.getIdCliente(),
+                obj.getIdVendedor(),
                 obj.getDataCriacao(),
                 obj.getDataVigencia(),
                 obj.getDataEntregaPrevista(),
@@ -57,9 +59,10 @@ public class PedidoEntrada {
         );
     }
 
-    public static PedidoEntrada mapToObj(PedidoEntradaPostDto dto) {
-        return PedidoEntrada.builder()
-                .idFornecedor(dto.idFornecedor())
+    public static PedidoSaida mapToObj(PedidoSaidaPostDto dto) {
+        return PedidoSaida.builder()
+                .idCliente(dto.idCliente())
+                .idVendedor(dto.idVendedor())
                 .dataCriacao(dto.dataCriacao())
                 .dataVigencia(dto.dataVigencia())
                 .dataEntregaPrevista(dto.dataEntregaPrevista())
@@ -71,4 +74,3 @@ public class PedidoEntrada {
                 .build();
     }
 }
-

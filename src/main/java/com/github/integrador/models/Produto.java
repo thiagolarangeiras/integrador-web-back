@@ -18,8 +18,8 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    //private Integer idFornecedor;
-    //private Integer idMarca;
+    private Integer idFornecedor;
+    private Integer idMarca;
 
     private String nome;
     private String descricao;
@@ -28,20 +28,20 @@ public class Produto {
     private Integer categoria;
     private Integer qtEstoque;
 
-    @ManyToOne
-    @JoinColumn(name = "id_fornecedor")
-    private Fornecedor fornecedor;
+    //@ManyToOne
+    //@JoinColumn(name = "id_fornecedor")
+    //private Fornecedor fornecedor;
 
-    @ManyToOne
-    @JoinColumn(name = "id_marca")
-    private Marca marca;
+    //@ManyToOne
+    //@JoinColumn(name = "id_marca")
+    //private Marca marca;
 
     //Mappers
     public static ProdutoGetDto mapToDto(Produto obj) {
         return new ProdutoGetDto(
             obj.getId(),
-            1,//obj.getIdFornecedor(),
-            2,//obj.getIdMarca(),
+            obj.getIdFornecedor(),
+            obj.getIdMarca(),
             obj.getNome(),
             obj.getDescricao(),
             obj.getValorCompra(),
@@ -53,8 +53,8 @@ public class Produto {
 
     public static Produto mapToObj(ProdutoPostDto dto) {
         return Produto.builder()
-            //.idFornecedor(dto.idFornecedor())
-            //.idMarca(dto.idMarca())
+            .idFornecedor(dto.idFornecedor())
+            .idMarca(dto.idMarca())
             .nome(dto.nome())
             .descricao(dto.descricao())
             .valorCompra(dto.valorCompra())

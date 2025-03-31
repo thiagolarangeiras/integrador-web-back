@@ -22,14 +22,15 @@ public class Fornecedor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String nome; //nome da empresa
     private String cpfCnpj;
     private String endereco;
     private String telefone;
     private String email;
 
-    @OneToMany(mappedBy = "fornecedor")
-    private List<Produto> produtosFornecidos;
+    //@OneToMany(mappedBy = "fornecedor")
+    //private List<Produto> produtosFornecidos;
 
     //Mappers
     public static FornecedorGetDto mapToDto(Fornecedor obj) {

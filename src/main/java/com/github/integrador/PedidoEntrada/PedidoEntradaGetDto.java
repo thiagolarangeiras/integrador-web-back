@@ -1,0 +1,16 @@
+package com.github.integrador.PedidoEntrada;
+
+import java.util.Date;
+
+public record PedidoEntradaGetDto(
+        Integer id,
+        Integer idFornecedor,
+        Date dataCriacao,
+        Date dataVigencia,
+        Date dataEntregaPrevista,
+        Date dataEntregaReal,
+        Integer statusEntrega,
+        Integer statusPagamento,
+        Double valorTotal,
+        Double valorFrete
+){ }

@@ -1,8 +1,8 @@
 package com.github.integrador.auth;
 
-import com.github.integrador.dtos.UserGetDto;
-import com.github.integrador.dtos.UserPostDto;
-import com.github.integrador.services.UsuarioService;
+import com.github.integrador.Usuario.UsuarioGetDto;
+import com.github.integrador.Usuario.UsuarioPostDto;
+import com.github.integrador.Usuario.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,7 @@ public class AuthenticationController {
 
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserGetDto register(@RequestBody @Valid UserPostDto dto) {
+    public UsuarioGetDto register(@RequestBody @Valid UsuarioPostDto dto) {
         return service.post(dto);
     }
 }

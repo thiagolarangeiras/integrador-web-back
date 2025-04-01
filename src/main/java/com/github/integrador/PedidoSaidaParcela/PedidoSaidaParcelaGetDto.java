@@ -1,11 +1,11 @@
 package com.github.integrador.PedidoSaidaParcela;
 
-import lombok.Data;
+import java.util.Date;
 
 public record PedidoSaidaParcelaGetDto(
         Integer id,
         Integer idPedidoSaida,
         Double valor,
-        Data dataVencimento,
+        Date dataVencimento,
         Integer status
 ) { }

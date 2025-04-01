@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "pedido_entrada_parcela")
 @Data
@@ -19,7 +21,7 @@ public class PedidoEntradaParcela {
     private Integer idPedidoEntrada;
 
     private Double valor;
-    private Data dataVencimento;
+    private Date dataVencimento;
     private Integer status;
 
     //@ManyToOne

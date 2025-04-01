@@ -1,5 +1,8 @@
 package com.github.integrador.PedidoSaida;
 
+import com.github.integrador.enums.StatusEntrega;
+import com.github.integrador.enums.StatusPagamento;
+import com.github.integrador.enums.StatusPedido;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,8 +27,9 @@ public class PedidoSaida {
     private Date dataVigencia;
     private Date dataEntregaPrevista;
     private Date dataEntregaReal;
-    private Integer statusEntrega;
-    private Integer statusPagamento;
+    private StatusPedido status;
+    private StatusEntrega statusEntrega;
+    private StatusPagamento statusPagamento;
 
     private Double valorTotal;
     private Double valorFrete;
@@ -50,6 +54,7 @@ public class PedidoSaida {
                 obj.getDataVigencia(),
                 obj.getDataEntregaPrevista(),
                 obj.getDataEntregaReal(),
+                obj.getStatus(),
                 obj.getStatusEntrega(),
                 obj.getStatusPagamento(),
                 obj.getValorTotal(),

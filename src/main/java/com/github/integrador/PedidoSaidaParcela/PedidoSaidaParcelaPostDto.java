@@ -1,5 +1,7 @@
 package com.github.integrador.PedidoSaidaParcela;
 
+import com.github.integrador.enums.StatusParcela;
+
 import java.util.Date;
 
 public record PedidoSaidaParcelaPostDto(
@@ -7,5 +9,5 @@ public record PedidoSaidaParcelaPostDto(
         Integer idPedidoSaida,
         Double valor,
         Date dataVencimento,
-        Integer status
+        StatusParcela status
 ) { }

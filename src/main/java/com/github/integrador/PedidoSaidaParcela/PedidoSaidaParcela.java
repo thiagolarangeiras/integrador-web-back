@@ -1,5 +1,6 @@
 package com.github.integrador.PedidoSaidaParcela;
 
+import com.github.integrador.enums.StatusParcela;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,7 @@ public class PedidoSaidaParcela {
 
     private Double valor;
     private Date dataVencimento;
-    private Integer status;
+    private StatusParcela status;
 
     //@ManyToOne
     //@JoinColumn(name = "id_pedido_saida")

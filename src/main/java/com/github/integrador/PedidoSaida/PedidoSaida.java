@@ -70,6 +70,7 @@ public class PedidoSaida {
                 .dataVigencia(dto.dataVigencia())
                 .dataEntregaPrevista(dto.dataEntregaPrevista())
                 .dataEntregaReal(dto.dataEntregaReal())
+                .status(dto.status())
                 .statusEntrega(dto.statusEntrega())
                 .statusPagamento(dto.statusPagamento())
                 .valorTotal(dto.valorTotal())

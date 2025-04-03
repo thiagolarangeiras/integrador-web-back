@@ -1,5 +1,8 @@
 package com.github.integrador.PedidoSaida;
 
+import com.github.integrador.enums.StatusEntrega;
+import com.github.integrador.enums.StatusPagamento;
+import com.github.integrador.enums.StatusPedido;
 import lombok.Builder;
 
 import java.util.Date;
@@ -12,8 +15,9 @@ public record PedidoSaidaPostDto(
         Date dataVigencia,
         Date dataEntregaPrevista,
         Date dataEntregaReal,
-        Integer statusEntrega,
-        Integer statusPagamento,
+        StatusPedido status,
+        StatusEntrega statusEntrega,
+        StatusPagamento statusPagamento,
         Double valorTotal,
         Double valorFrete
 ) { }

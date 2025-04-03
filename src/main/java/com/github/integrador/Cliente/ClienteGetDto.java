@@ -3,7 +3,7 @@ package com.github.integrador.Cliente;
 import lombok.Builder;
 
 @Builder
-public record ClienteGetDto(
+public record ClienteGetDto (
     Integer id,
     Integer idVendedor,
     String nomePessoa,
@@ -14,10 +14,4 @@ public record ClienteGetDto(
     String telefone,
     String email,
     String descricao
-
-
-)
-
-{
-
-}
+) { }

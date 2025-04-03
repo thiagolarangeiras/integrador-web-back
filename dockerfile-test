@@ -1,0 +1,17 @@
+FROM arch-custom
+WORKDIR /devel/
+#COPY . .
+COPY ./gradlew .
+COPY build build
+COPY .gradle .gradle
+COPY gradle gradle
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
+
+#RUN ./gradlew build
+
+EXPOSE 8080
+
+#ENTRYPOINT ["./gradlew", "bootRun"]
+ENTRYPOINT ["tail", "-f", "/dev/null"]
+#CMD ["./gradlew bootRun"]

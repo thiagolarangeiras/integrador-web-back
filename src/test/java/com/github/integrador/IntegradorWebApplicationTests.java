@@ -1,10 +1,10 @@
-package com.github.projeto_integrador_web;
+package com.github.integrador;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProjetoIntegradorWebApplicationTests {
+class IntegradorWebApplicationTests {
 
 	@Test
 	void contextLoads() {

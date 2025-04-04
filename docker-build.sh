@@ -1,3 +1,3 @@
-./gradlew build && java -jar build/libs/integrador-web-0.0.1-SNAPSHOT.jar
-docker build --build-arg JAR_FILE=build/libs/\*.jar -t teste .
-docker run -p 8080:8080 teste
+./gradlew build
+docker build --build-arg JAR_FILE=build/libs/\*.jar -t integrador_web .
+docker run -d -p 8080:8080 --name integrador_web integrador_web

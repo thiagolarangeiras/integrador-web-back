@@ -20,9 +20,9 @@ public class AuthenticationController {
         return new LoginResponseDto(service.login(authenticationDto));
     }
 
-    @PostMapping("/signin")
-    @ResponseStatus(HttpStatus.CREATED)
-    public UsuarioGetDto register(@RequestBody @Valid UsuarioPostDto dto) {
-        return service.post(dto);
-    }
+//    @PostMapping("/signin")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public UsuarioGetDto register(@RequestBody @Valid UsuarioPostDto dto) {
+//        return service.post(dto);
+//    }
 }

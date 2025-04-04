@@ -18,7 +18,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Usuario implements UserDetails {
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,28 +30,21 @@ public class Usuario implements UserDetails {
     private String email;
 
     private String password;
-    private Set<String> roles = new HashSet<>();
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map((role -> new SimpleGrantedAuthority(role))).toList();
-    }
 
     //Mappers
     public static UsuarioGetDto convertEntityToDto(Usuario usuario) {
         return new UsuarioGetDto(
-                usuario.getId(),
-                usuario.getUsername(),
-                usuario.getEmail()
+            usuario.getId(),
+            usuario.getUsername(),
+            usuario.getEmail()
         );
     }
 
     public static Usuario convertDtoToEntity(UsuarioPostDto dto) {
-        return Usuario.builder()
-                .username(dto.username())
-                .email(dto.email())
-                .password(new BCryptPasswordEncoder().encode(dto.password()))
-                .roles(new HashSet<String>())
-                .build();
+        Usuario obj = new Usuario();
+        obj.username = dto.username();
+        obj.email    = dto.email();
+        obj.password = new BCryptPasswordEncoder().encode(dto.password());
+        return obj;
     }
 }

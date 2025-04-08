@@ -5,9 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.*;
@@ -18,7 +15,7 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Usuario implements UserDetails {
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -30,28 +27,24 @@ public class Usuario implements UserDetails {
     private String email;
 
     private String password;
-    private Set<String> roles = new HashSet<>();
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map((role -> new SimpleGrantedAuthority(role))).toList();
-    }
+    private List<Cargo> cargo;
 
     //Mappers
     public static UsuarioGetDto convertEntityToDto(Usuario usuario) {
         return new UsuarioGetDto(
-                usuario.getId(),
-                usuario.getUsername(),
-                usuario.getEmail()
+            usuario.getId(),
+            usuario.getUsername(),
+            usuario.getEmail(),
+            usuario.getCargo()
         );
     }
 
     public static Usuario convertDtoToEntity(UsuarioPostDto dto) {
-        return Usuario.builder()
-                .username(dto.username())
-                .email(dto.email())
-                .password(new BCryptPasswordEncoder().encode(dto.password()))
-                .roles(new HashSet<String>())
-                .build();
+        Usuario u = new Usuario();
+        u.setUsername(dto.username());
+        u.setEmail(dto.email());
+        u.setPassword(new BCryptPasswordEncoder().encode(dto.password()));
+        u.setCargo(dto.cargo());
+        return u;
     }
 }

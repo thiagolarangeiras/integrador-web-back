@@ -10,6 +10,7 @@ https://www.baeldung.com/spring-boot-google-app-engine
 https://hostingtutorials.dev/blog/free-spring-boot-host-with-render
 https://medium.com/@cmmapada/advanced-search-and-filtering-using-spring-data-jpa-specification-and-criteria-api-b6e8f891f2bf
 https://springdoc.org/#getting-started
+https://medium.com/@felipeacelinoo/protegendo-sua-api-rest-com-spring-security-e-autenticando-usuários-com-token-jwt-em-uma-aplicação-d70e5b0331f9
 
 # Java Swagger
 `localhost:8080/swagger`

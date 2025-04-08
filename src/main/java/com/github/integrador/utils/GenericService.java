@@ -1,4 +1,4 @@
-package com.github.integrador.infra;
+package com.github.integrador.utils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

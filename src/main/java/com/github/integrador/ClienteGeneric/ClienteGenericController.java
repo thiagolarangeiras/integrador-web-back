@@ -1,7 +1,7 @@
 package com.github.integrador.ClienteGeneric;
 
 import com.github.integrador.Cliente.*;
-import com.github.integrador.infra.GenericService;
+import com.github.integrador.utils.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

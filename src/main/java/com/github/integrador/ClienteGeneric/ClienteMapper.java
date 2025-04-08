@@ -3,7 +3,7 @@ package com.github.integrador.ClienteGeneric;
 import com.github.integrador.Cliente.Cliente;
 import com.github.integrador.Cliente.ClienteGetDto;
 import com.github.integrador.Cliente.ClientePostDto;
-import com.github.integrador.infra.GenericMapper;
+import com.github.integrador.utils.GenericMapper;
 import org.springframework.stereotype.Service;
 
 @Service

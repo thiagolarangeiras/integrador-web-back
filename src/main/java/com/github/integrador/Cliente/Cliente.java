@@ -1,6 +1,6 @@
 package com.github.integrador.Cliente;
 
-import com.github.integrador.infra.GenericModel;
+import com.github.integrador.utils.GenericModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

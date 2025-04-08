@@ -34,9 +34,22 @@ public class AuthController {
         return "Servidor OK";
     }
 
-	@GetMapping("/teste-login")
+	@GetMapping("/teste/login")
     @ResponseStatus(HttpStatus.OK)
     public String testeLogin() {
-        return "Servidor OK";
+        return "Login OK";
+    }
+
+
+    @GetMapping("/teste/adm")
+    @ResponseStatus(HttpStatus.OK)
+    public String testeAdm() {
+        return "Adm OK";
+    }
+
+    @GetMapping("/teste/vendedor")
+    @ResponseStatus(HttpStatus.OK)
+    public String testeVendedor() {
+        return "Vendedor OK";
     }
 }

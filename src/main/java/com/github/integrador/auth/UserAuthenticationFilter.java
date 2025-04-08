@@ -49,6 +49,6 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 
     private boolean checkIfEndpointIsPrivate(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        return Arrays.asList(SecurityConfiguration.ENDPOINTS_WITH_AUTHENTICATION_REQUIRED).contains(requestURI);
+        return Arrays.asList(SecurityConfiguration.AUTH_REQUIRED).contains(requestURI);
     }
 }

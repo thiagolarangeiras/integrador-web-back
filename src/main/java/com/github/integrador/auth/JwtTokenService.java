@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -12,11 +13,17 @@ import java.time.ZonedDateTime;
 
 @Service
 public class JwtTokenService {
-    private static final String SECRET_KEY = "4Z^XrroxR@dWxqf$mTTKwW$!@#qGr4P"; // Chave secreta utilizada para gerar e verificar o token
-    private static final String ISSUER = "pizzurg-api"; // Emissor do token
+    //private static final String SECRET_KEY = "";
+    //private static final String ISSUER = "";
+    @Value("${jwt.token.secret}") private String SECRET_KEY;
+    @Value("${jwt.token.issuer}") private String ISSUER;
+    @Value("${jwt.token.expiration}") private Integer EXPIRATION;
 
     public String generateToken(UserDetailsImpl user) {
         try {
+            System.out.printf("SECRET_KEY: %s", SECRET_KEY);
+            System.out.printf("ISSUER: %s", ISSUER);
+            System.out.printf("EXPIRATION: %d", EXPIRATION);
             // Define o algoritmo HMAC SHA256 para criar a assinatura do token passando a chave secreta definida
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
             return JWT.create()
@@ -49,6 +56,6 @@ public class JwtTokenService {
     }
 
     private Instant expirationDate() {
-        return ZonedDateTime.now(ZoneId.of("America/Sao_Paulo")).plusHours(4).toInstant();
+        return ZonedDateTime.now(ZoneId.of("America/Sao_Paulo")).plusHours(EXPIRATION).toInstant();
     }
 }

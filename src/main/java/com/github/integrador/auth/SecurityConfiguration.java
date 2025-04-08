@@ -25,7 +25,7 @@ public class SecurityConfiguration {
     };
 
     public static final String[] AUTH_REQUIRED = {
-            "/teste-login",
+            "/teste/login",
             "/Cliente*",
             "/Fornecedor*",
             "/Marca*",
@@ -36,24 +36,26 @@ public class SecurityConfiguration {
     };
 
     public static final String[] AUTH_CARGO_ADM = {
-            ""
+            "/teste/adm"
     };
 
     public static final String[] AUTH_CARGO_VENDEDOR = {
-            ""
+            "/teste/vendedor"
     };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().authorizeHttpRequests()
-                .requestMatchers(AUTH_REQUIRED).authenticated()
-                .requestMatchers(AUTH_CARGO_ADM).hasRole("ADM")
-                .requestMatchers(AUTH_CARGO_VENDEDOR).hasRole("VENDEDOR")
-                .requestMatchers(AUTH_NOT_REQUIRED).permitAll()
-                .anyRequest().permitAll()
-                .and().addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        return httpSecurity
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(AUTH_REQUIRED).authenticated()
+                        .requestMatchers(AUTH_CARGO_ADM).hasRole("ADM")
+                        .requestMatchers(AUTH_CARGO_VENDEDOR).hasRole("VENDEDOR")
+                        .requestMatchers(AUTH_NOT_REQUIRED).permitAll()
+                        .anyRequest().permitAll()
+                )
                 .build();
     }
 
@@ -66,17 +68,4 @@ public class SecurityConfiguration {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
-
-
-// @Configuration
-// @EnableWebSecurity
-// public class SecurityConfiguration {
-
-//     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
-//             "/users/login", //url que usaremos para fazer login
-//             "/users" //url que usaremos para criar um usuário
-//     };
-
-// }

@@ -31,6 +31,7 @@ dependencies {
 	//developmentOnly("org.springframework.boot:spring-boot-devtools")
 	implementation("com.auth0:java-jwt:4.4.0")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5")
+	implementation("com.github.librepdf:openpdf:2.0.3")
 
 
 	compileOnly("org.projectlombok:lombok")

@@ -4,6 +4,8 @@ import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,17 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 
-// Modelo simples para item de pedido
+@AllArgsConstructor
+@NoArgsConstructor
 class ItemPedido {
     String nomeProduto;
     int quantidade;
     double preco;
-
-    public ItemPedido(String nome, int qtd, double preco) {
-        this.nomeProduto = nome;
-        this.quantidade = qtd;
-        this.preco = preco;
-    }
 
     double getSubtotal() {
         return quantidade * preco;
@@ -31,6 +28,7 @@ class ItemPedido {
 @RestController
 @RequestMapping("/pdf")
 public class PdfPedido {
+
     void startDocument(Document document){
         Font tituloFont = new Font(Font.HELVETICA, 16, Font.BOLD);
         Font normalFont = new Font(Font.HELVETICA, 12, Font.NORMAL);

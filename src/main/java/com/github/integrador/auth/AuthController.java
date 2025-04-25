@@ -1,4 +1,4 @@
-package com.github.integrador.Auth;
+package com.github.integrador.auth;
 
 import com.github.integrador.Usuario.UsuarioRepo;
 import org.springframework.beans.factory.annotation.Autowired;

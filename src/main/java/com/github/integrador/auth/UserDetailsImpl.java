@@ -1,4 +1,4 @@
-package com.github.integrador.Auth;
+package com.github.integrador.auth;
 
 import com.github.integrador.Usuario.Usuario;
 import lombok.Getter;
@@ -18,13 +18,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        /*
-         Este método converte a lista de papéis (roles) associados ao usuário 
-         em uma coleção de GrantedAuthorities, que é a forma que o Spring Security 
-         usa para representar papéis. Isso é feito mapeando cada papel para um 
-         novo SimpleGrantedAuthority, que é uma implementação simples de 
-         GrantedAuthority
-        */
         return user.getCargo()
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.name()))

@@ -1,4 +1,4 @@
-package com.github.integrador.Auth;
+package com.github.integrador.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,12 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
     @Autowired private UserAuthenticationFilter userAuthenticationFilter;
 
-    public static final String[] AUTH_NOT_REQUIRED = {
-            "/auth",
-            "/teste",
-            "/swagger-ui/index.html",
-    };
-
     public static final String[] AUTH_REQUIRED = {
             "/teste/login",
             "/Cliente*",
@@ -31,8 +25,8 @@ public class SecurityConfiguration {
             "/Marca*",
             "/Pedido*",
             "/Produto*",
+            "/Vendedor*",
             "/Usuario*",
-            "/Vendedor*"
     };
 
     public static final String[] AUTH_CARGO_ADM = {
@@ -53,7 +47,6 @@ public class SecurityConfiguration {
                         .requestMatchers(AUTH_REQUIRED).authenticated()
                         .requestMatchers(AUTH_CARGO_ADM).hasRole("ADM")
                         .requestMatchers(AUTH_CARGO_VENDEDOR).hasRole("VENDEDOR")
-                        .requestMatchers(AUTH_NOT_REQUIRED).permitAll()
                         .anyRequest().permitAll()
                 )
                 .build();

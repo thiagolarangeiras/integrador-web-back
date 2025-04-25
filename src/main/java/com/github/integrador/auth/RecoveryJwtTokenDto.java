@@ -1,4 +1,4 @@
-package com.github.integrador.Auth;
+package com.github.integrador.auth;
 
 public record RecoveryJwtTokenDto(
 	String token

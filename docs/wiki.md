@@ -5,6 +5,17 @@ JAVA_HOME C:\Program Files\Java\jre1.8.0_421
 ./gradlew clean
 ./gradlew build
 
+./gradlew build
+docker build --build-arg JAR_FILE=build/libs/integrador-web-0.0.1.jar -t integrador_web .
+docker tag integrador_web thiagolarangeira/integrador_web:2
+docker push thiagolarangeira/integrador_web:2
+
+docker run -d -p 8080:8080 \
+-e INT_WEB_POSTGRES_URL="jdbc:postgresql://host.docker.internal:5432/integrador-web" \
+-e INT_WEB_POSTGRES_USER="postgres" \
+-e INT_WEB_POSTGRES_PASS="1234" \
+--name integrador_web integrador_web
+
 # Java Links
 https://www.baeldung.com/spring-boot-google-app-engine
 https://hostingtutorials.dev/blog/free-spring-boot-host-with-render

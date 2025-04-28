@@ -27,13 +27,13 @@ public class SecurityConfiguration {
 
     public static final String[] AUTH_REQUIRED = {
             "/teste/login",
-            "/Cliente*",
-            "/Fornecedor*",
-            "/Marca*",
-            "/Pedido*",
-            "/Produto*",
-            "/Vendedor*",
-            "/Usuario*",
+            "/cliente/**",
+            "/fornecedor/**",
+            "/marca/**",
+            "/pedido/**",
+            "/produto/**",
+            "/vendedor/**",
+            "/usuario/**",
     };
 
     public static final String[] AUTH_CARGO_ADM = {

@@ -57,7 +57,7 @@ public class SecurityConfiguration {
 
         //config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedMethods(Collections.singletonList("*"));
-        config.setAllowCredentials(true);
+        //config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

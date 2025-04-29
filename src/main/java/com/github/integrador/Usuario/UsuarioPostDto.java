@@ -9,5 +9,5 @@ public record UsuarioPostDto(
         String username,
         String email,
         String password,
-        List<Cargo> cargo
+        Cargo cargo
 ) { }

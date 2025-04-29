@@ -1,5 +1,6 @@
 package com.github.integrador.auth;
 
+import com.github.integrador.Usuario.Cargo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 
 import java.util.Collections;
 
@@ -33,11 +33,11 @@ public class SecurityConfiguration {
             "/pedido/**",
             "/produto/**",
             "/vendedor/**",
-            "/usuario/**",
     };
 
     public static final String[] AUTH_CARGO_ADM = {
-            "/teste/adm"
+            "/teste/adm",
+            "/usuario/**",
     };
 
     public static final String[] AUTH_CARGO_VENDEDOR = {
@@ -73,8 +73,9 @@ public class SecurityConfiguration {
                 .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(AUTH_REQUIRED).authenticated()
-                        .requestMatchers(AUTH_CARGO_ADM).hasRole("ADM")
-                        .requestMatchers(AUTH_CARGO_VENDEDOR).hasRole("VENDEDOR")
+                        .requestMatchers(AUTH_CARGO_ADM).hasAuthority(Cargo.adm.name())
+                        .requestMatchers(AUTH_CARGO_VENDEDOR).hasAuthority(Cargo.vendedor.name())
+                        //.requestMatchers(AUTH_CARGO_VENDEDOR).hasRole(Cargo.vendedor.name())  // Role nao funciona nesse caso
                         .anyRequest().permitAll()
                 )
                 .build();

@@ -27,7 +27,7 @@ public class Usuario {
     private String email;
 
     private String password;
-    private List<Cargo> cargo;
+    private Cargo cargo;
 
     //Mappers
     public static UsuarioGetDto convertEntityToDto(Usuario usuario) {

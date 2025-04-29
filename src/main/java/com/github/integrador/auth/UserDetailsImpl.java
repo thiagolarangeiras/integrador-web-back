@@ -6,7 +6,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
@@ -18,21 +20,21 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getCargo()
-                .stream()
-                .map(role -> new SimpleGrantedAuthority(role.name()))
-                .collect(Collectors.toList());
+        List<SimpleGrantedAuthority> a = new ArrayList<SimpleGrantedAuthority>() {{
+            add(new SimpleGrantedAuthority(user.getCargo().name()));
+        }};
+        return a;
     }
 
     @Override
     public String getPassword() {
         return user.getPassword();
-    } // Retorna a credencial do usuário que criamos anteriormente
+    }
 
     @Override
     public String getUsername() {
         return user.getUsername();
-    } // Retorna o nome de usuário do usuário que criamos anteriormente
+    }
 
     @Override
     public boolean isAccountNonExpired() {

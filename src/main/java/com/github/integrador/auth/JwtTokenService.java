@@ -13,17 +13,15 @@ import java.time.ZonedDateTime;
 
 @Service
 public class JwtTokenService {
-    //private static final String SECRET_KEY = "";
-    //private static final String ISSUER = "";
     @Value("${jwt.token.secret}") private String SECRET_KEY;
     @Value("${jwt.token.issuer}") private String ISSUER;
     @Value("${jwt.token.expiration}") private Integer EXPIRATION;
 
     public String generateToken(UserDetailsImpl user) {
         try {
-            System.out.printf("SECRET_KEY: %s", SECRET_KEY);
-            System.out.printf("ISSUER: %s", ISSUER);
-            System.out.printf("EXPIRATION: %d", EXPIRATION);
+            System.out.printf("SECRET_KEY: %s\n", SECRET_KEY);
+            System.out.printf("ISSUER: %s\n", ISSUER);
+            System.out.printf("EXPIRATION: %d\n", EXPIRATION);
             // Define o algoritmo HMAC SHA256 para criar a assinatura do token passando a chave secreta definida
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
             return JWT.create()

@@ -40,7 +40,6 @@ public class AuthController {
         return "Login OK";
     }
 
-
     @GetMapping("/teste/adm")
     @ResponseStatus(HttpStatus.OK)
     public String testeAdm() {

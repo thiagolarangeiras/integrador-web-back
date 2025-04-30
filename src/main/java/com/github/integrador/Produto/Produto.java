@@ -1,5 +1,9 @@
 package com.github.integrador.Produto;
 
+import com.github.integrador.Fornecedor.FornecedorGetDto;
+import com.github.integrador.Fornecedor.FornecedorService;
+import com.github.integrador.Marca.Marca;
+import com.github.integrador.Marca.MarcaGetDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,12 +44,30 @@ public class Produto {
             obj.getId(),
             obj.getIdFornecedor(),
             obj.getIdMarca(),
+            null,
+            null,
             obj.getNome(),
             obj.getDescricao(),
             obj.getValorCompra(),
             obj.getValorVenda(),
             obj.getCategoria(),
             obj.getQtEstoque()
+        );
+    }
+
+    public static ProdutoGetDto mapToDto(Produto obj, MarcaGetDto dtoMarca, FornecedorGetDto dtoFornecedor) {
+        return new ProdutoGetDto(
+                obj.getId(),
+                obj.getIdFornecedor(),
+                obj.getIdMarca(),
+                dtoMarca,
+                dtoFornecedor,
+                obj.getNome(),
+                obj.getDescricao(),
+                obj.getValorCompra(),
+                obj.getValorVenda(),
+                obj.getCategoria(),
+                obj.getQtEstoque()
         );
     }
 

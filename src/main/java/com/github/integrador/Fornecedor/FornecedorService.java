@@ -1,5 +1,7 @@
 package com.github.integrador.Fornecedor;
 
+import com.github.integrador.Produto.Produto;
+import com.github.integrador.Produto.ProdutoGetDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,15 @@ public class FornecedorService {
                 .stream()
                 .map(Fornecedor::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    public List<FornecedorGetDto> getAllFilter (Integer page, Integer count, String nome) {
+        Pageable pageable = PageRequest.of(page, count);
+        return fornecedorRepo.findByNomeContaining(nome, pageable)
+                .orElseThrow()
+                .stream()
+                .map(Fornecedor::mapToDto)
+                .toList();
     }
 
     public FornecedorGetDto getOne (Integer id) {

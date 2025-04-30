@@ -14,12 +14,21 @@ public class MarcaService {
     @Autowired
     private MarcaRepo marcaRepo;
 
-    public List<MarcaGetDto> getAll (int page, int count) {
+    public List<MarcaGetDto> getAll (Integer page, Integer count) {
         Pageable pageable = PageRequest.of(page, count);
         return marcaRepo.findAll(pageable)
                 .stream()
                 .map(Marca::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    public List<MarcaGetDto> getAllFilter (Integer page, Integer count, String nome) {
+        Pageable pageable = PageRequest.of(page, count);
+        return marcaRepo.findByNomeContaining(nome, pageable)
+                .orElseThrow()
+                .stream()
+                .map(Marca::mapToDto)
+                .toList();
     }
 
     public MarcaGetDto getOne (Integer id) {

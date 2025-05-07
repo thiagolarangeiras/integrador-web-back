@@ -12,14 +12,22 @@ public class ClienteMapper implements GenericMapper<Cliente, ClienteGetDto, Clie
         return new ClienteGetDto(
                 obj.getId(),
                 obj.getIdVendedor(),
+                null,
                 obj.getNomePessoa(),
                 obj.getNomeEmpresa(),
-                obj.getCpf(),
-                obj.getCnpj(),
-                obj.getEndereco(),
+                obj.getNomeFantasia(),
+                obj.getDescricao(),
+                obj.getTipo(),
+                obj.getCpfCnpj(),
                 obj.getTelefone(),
                 obj.getEmail(),
-                obj.getDescricao()
+                obj.getCep(),
+                obj.getRua(),
+                obj.getNumero(),
+                obj.getComplemento(),
+                obj.getBairro(),
+                obj.getCidade(),
+                obj.getEstado()
         );
     }
 
@@ -28,12 +36,19 @@ public class ClienteMapper implements GenericMapper<Cliente, ClienteGetDto, Clie
         cliente.setIdVendedor(dto.idVendedor());
         cliente.setNomePessoa(dto.nomePessoa());
         cliente.setNomeEmpresa(dto.nomeEmpresa());
-        cliente.setCpf(dto.cpf());
-        cliente.setCnpj(dto.cnpj());
-        cliente.setEndereco(dto.endereco());
+        cliente.setNomeFantasia(dto.nomeFantasia());
+        cliente.setDescricao(dto.descricao());
+        cliente.setTipo(dto.tipo());
+        cliente.setCpfCnpj(dto.cpfCnpj());
         cliente.setTelefone(dto.telefone());
         cliente.setEmail(dto.email());
-        cliente.setDescricao(dto.descricao());
+        cliente.setCep(dto.cep());
+        cliente.setRua(dto.rua());
+        cliente.setNumero(dto.numero());
+        cliente.setComplemento(dto.complemento());
+        cliente.setBairro(dto.bairro());
+        cliente.setCidade(dto.cidade());
+        cliente.setEstado(dto.estado());
         return cliente;
     }
 }

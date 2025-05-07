@@ -1,5 +1,6 @@
 package com.github.integrador.Cliente;
 
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +22,12 @@ public class ClienteController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<Object> getAll(
             @RequestParam int page,
-            @RequestParam int count
+            @RequestParam int count,
+            @Nullable @RequestParam String nome
     ) {
-        return ResponseEntity.ok(clienteService.getAll(page, count));
+        if (nome == null || nome.isBlank())
+            return ResponseEntity.ok(clienteService.getAll(page, count));
+        return ResponseEntity.ok(clienteService.getAllFilter(page, count, nome));
     }
 
     @PostMapping

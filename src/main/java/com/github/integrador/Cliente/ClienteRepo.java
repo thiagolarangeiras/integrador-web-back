@@ -8,4 +8,8 @@ import java.util.Optional;
 
 public interface ClienteRepo extends JpaRepository<Cliente, Integer> {
     Optional<Page<Cliente>> findById(Integer id, Pageable pageable);
+    Optional<Page<Cliente>> findByNomePessoaContainingIgnoreCase(String nomePessoa, Pageable pageable);
+    Optional<Page<Cliente>> findByNomeEmpresaContainingIgnoreCase(String nomeEmpresa, Pageable pageable);
+    Optional<Page<Cliente>> findByNomeFantasiaContainingIgnoreCase(String nomeFantasia, Pageable pageable);
+    Optional<Page<Cliente>> findByDescricaoContainingIgnoreCase(String descricao, Pageable pageable);
 }

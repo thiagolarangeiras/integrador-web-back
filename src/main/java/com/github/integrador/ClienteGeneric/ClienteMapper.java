@@ -14,6 +14,7 @@ public class ClienteMapper implements GenericMapper<Cliente, ClienteGetDto, Clie
                 obj.getIdVendedor(),
                 null,
                 obj.getNomePessoa(),
+                obj.getNomePessoa(),
                 obj.getNomeEmpresa(),
                 obj.getNomeFantasia(),
                 obj.getDescricao(),

@@ -33,8 +33,11 @@ public class MarcaService {
 
     public MarcaGetDto getOne (Integer id) {
         Optional<Marca> marcaOptional = marcaRepo.findById(id);
-        Marca marca = marcaOptional.orElseThrow();;
-        return Marca.mapToDto(marca);
+        if(marcaOptional.isPresent()){
+            Marca marca = marcaOptional.get();
+            return Marca.mapToDto(marca);
+        }
+        return null;
     }
 
     public MarcaGetDto post(MarcaPostDto dto) {

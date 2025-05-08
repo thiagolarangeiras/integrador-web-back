@@ -10,6 +10,7 @@ public record ClienteGetDto (
     Integer id,
     Integer idVendedor,
     VendedorGetDto vendedor,
+    String nome,
     String nomePessoa,
     String nomeEmpresa,
     String nomeFantasia,

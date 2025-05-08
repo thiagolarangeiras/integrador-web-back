@@ -1,5 +1,6 @@
 package com.github.integrador.Fornecedor;
 
+import com.github.integrador.Marca.Marca;
 import com.github.integrador.Produto.Produto;
 import com.github.integrador.Produto.ProdutoGetDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,11 @@ public class FornecedorService {
 
     public FornecedorGetDto getOne (Integer id) {
         Optional<Fornecedor> fornecedorOptional = fornecedorRepo.findById(id);
-        Fornecedor fornecedor = fornecedorOptional.orElseThrow();;
-        return Fornecedor.mapToDto(fornecedor);
+        if(fornecedorOptional.isPresent()){
+            Fornecedor fornecedor  = fornecedorOptional.get();
+            return Fornecedor.mapToDto(fornecedor);
+        }
+        return null;
     }
 
     public FornecedorGetDto post(FornecedorPostDto dto) {

@@ -6,5 +6,5 @@ public enum StatusPedido {
     EmTransporte,
     Entregue,
     Cancelado,
-    Devolvido;
+    Devolvido
 }

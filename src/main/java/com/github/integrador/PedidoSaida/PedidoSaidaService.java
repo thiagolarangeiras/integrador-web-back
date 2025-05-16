@@ -1,5 +1,10 @@
 package com.github.integrador.PedidoSaida;
 
+import com.github.integrador.Infra.PdfPedidoDados;
+import com.github.integrador.PedidoSaidaParcela.PedidoSaidaParcela;
+import com.github.integrador.PedidoSaidaParcela.PedidoSaidaParcelaRepo;
+import com.github.integrador.PedidoSaidaProduto.PedidoSaidaProduto;
+import com.github.integrador.PedidoSaidaProduto.PedidoSaidaProdutoRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,8 +16,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class PedidoSaidaService {
-    @Autowired
-    private PedidoSaidaRepo repo;
+    @Autowired private PedidoSaidaRepo repo;
+    @Autowired private PedidoSaidaParcelaRepo parcelaRepo;
+    @Autowired private PedidoSaidaProdutoRepo produtoRepo;
 
     public List<PedidoSaidaGetDto> getAll (int page, int count) {
         Pageable pageable = PageRequest.of(page, count);
@@ -44,5 +50,15 @@ public class PedidoSaidaService {
 
     public void delete(Integer id) {
         repo.deleteById(id);
+    }
+
+    public PdfPedidoDados getDadosPdf(Integer id){
+        PedidoSaida pedido = repo.findById(id).orElseThrow();
+        List<PedidoSaidaParcela> parcela = parcelaRepo.findByIdPedidoSaida(id).orElseThrow();
+        List<PedidoSaidaProduto> produtos = produtoRepo.findByIdPedidoSaida(id).orElseThrow();
+        return new PdfPedidoDados(
+
+        );
+
     }
 }

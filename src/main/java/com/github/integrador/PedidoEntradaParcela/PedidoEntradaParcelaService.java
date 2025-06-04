@@ -1,5 +1,7 @@
 package com.github.integrador.PedidoEntradaParcela;
 
+import com.github.integrador.PedidoEntradaProduto.PedidoEntradaProduto;
+import com.github.integrador.PedidoEntradaProduto.PedidoEntradaProdutoGetDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -44,6 +46,17 @@ public class PedidoEntradaParcelaService {
 
     public void delete(Integer id) {
         repo.deleteById(id);
+    }
+
+    public List<PedidoEntradaParcelaGetDto> getByIdPedido(Integer id){
+        Optional<List<PedidoEntradaParcela>> parcelaOptional = repo.findByIdPedidoEntrada(id);
+        if(parcelaOptional.isPresent()){
+            return parcelaOptional.get()
+                    .stream()
+                    .map(PedidoEntradaParcela::mapToDto)
+                    .toList();
+        }
+        return null;
     }
 }
 

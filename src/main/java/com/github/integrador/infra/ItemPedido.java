@@ -1,4 +1,4 @@
-package com.github.integrador.Infra;
+package com.github.integrador.infra;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

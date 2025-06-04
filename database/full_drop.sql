@@ -39,3 +39,31 @@ DROP SEQUENCE pedido_saida_produto_id_seq;
 DROP SEQUENCE produto_id_seq;
 DROP SEQUENCE usuario_id_seq;
 DROP SEQUENCE vendedor_id_seq;
+
+-- Drop type
+DROP TYPE cliente;
+DROP TYPE fornecedor;
+DROP TYPE marca;
+DROP TYPE pedido_entrada;
+DROP TYPE pedido_entrada_parcela;
+DROP TYPE pedido_entrada_produto;
+DROP TYPE pedido_saida;
+DROP TYPE pedido_saida_parcela;
+DROP TYPE pedido_saida_produto;
+DROP TYPE produto;
+DROP TYPE usuario;
+DROP TYPE vendedor;
+DROP TYPE "_cliente";
+DROP TYPE "_fornecedor";
+DROP TYPE "_marca";
+DROP TYPE "_pedido_entrada";
+DROP TYPE "_pedido_entrada_parcela";
+DROP TYPE "_pedido_entrada_produto";
+DROP TYPE "_pedido_saida";
+DROP TYPE "_pedido_saida_parcela";
+DROP TYPE "_pedido_saida_produto";
+DROP TYPE "_produto";
+DROP TYPE "_usuario";
+DROP TYPE "_vendedor";
+
+DROP SCHEMA public;

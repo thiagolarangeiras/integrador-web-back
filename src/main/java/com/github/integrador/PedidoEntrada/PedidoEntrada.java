@@ -43,36 +43,38 @@ public class PedidoEntrada {
     //@OneToMany(mappedBy = "pedido")
     //private List<PedidoEntradaParcela> parcelas;
 
-    //Mappers
     public static PedidoEntradaGetDto mapToDto(PedidoEntrada obj) {
         return new PedidoEntradaGetDto(
-                obj.getId(),
-                obj.getIdFornecedor(),
-                obj.getDataCriacao(),
-                obj.getDataVigencia(),
-                obj.getDataEntregaPrevista(),
-                obj.getDataEntregaReal(),
-                obj.getStatus(),
-                obj.getStatusEntrega(),
-                obj.getStatusPagamento(),
-                obj.getValorTotal(),
-                obj.getValorFrete()
+            obj.getId(),
+            obj.getIdFornecedor(),
+            obj.getDataCriacao(),
+            obj.getDataVigencia(),
+            obj.getDataEntregaPrevista(),
+            obj.getDataEntregaReal(),
+            obj.getStatus(),
+            obj.getStatusEntrega(),
+            obj.getStatusPagamento(),
+            obj.getValorTotal(),
+            obj.getValorFrete(),
+            null,
+            null,
+            null
         );
     }
 
     public static PedidoEntrada mapToObj(PedidoEntradaPostDto dto) {
-        return PedidoEntrada.builder()
-                .idFornecedor(dto.idFornecedor())
-                .dataCriacao(dto.dataCriacao())
-                .dataVigencia(dto.dataVigencia())
-                .dataEntregaPrevista(dto.dataEntregaPrevista())
-                .dataEntregaReal(dto.dataEntregaReal())
-                .status(dto.status())
-                .statusEntrega(dto.statusEntrega())
-                .statusPagamento(dto.statusPagamento())
-                .valorTotal(dto.valorTotal())
-                .valorFrete(dto.valorFrete())
-                .build();
+        PedidoEntrada obj = new PedidoEntrada();
+        obj.idFornecedor        = dto.idFornecedor();
+        obj.dataCriacao         = dto.dataCriacao();
+        obj.dataVigencia        = dto.dataVigencia();
+        obj.dataEntregaPrevista = dto.dataEntregaPrevista();
+        obj.dataEntregaReal     = dto.dataEntregaReal();
+        obj.status              = dto.status();
+        obj.statusEntrega       = dto.statusEntrega();
+        obj.statusPagamento     = dto.statusPagamento();
+        obj.valorTotal          = dto.valorTotal();
+        obj.valorFrete          = dto.valorFrete();
+        return obj;
     }
 }
 

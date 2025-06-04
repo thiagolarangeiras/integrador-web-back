@@ -1,13 +1,15 @@
-package com.github.integrador.Infra;
+package com.github.integrador.infra;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.PdfPTable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PedidoPdfService {
 
     public void startDocument(Document document, PdfPedidoDados dados){

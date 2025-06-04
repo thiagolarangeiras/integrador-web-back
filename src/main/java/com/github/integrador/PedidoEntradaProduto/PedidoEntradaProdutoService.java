@@ -1,6 +1,8 @@
 package com.github.integrador.PedidoEntradaProduto;
 
+import com.github.integrador.Fornecedor.Fornecedor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,17 @@ public class PedidoEntradaProdutoService {
 
     public void delete(Integer id) {
         repo.deleteById(id);
+    }
+
+    public List<PedidoEntradaProdutoGetDto> getByIdPedido(Integer id){
+        Optional<List<PedidoEntradaProduto>> produtoOptional = repo.findByIdPedidoEntrada(id);
+        if(produtoOptional.isPresent()){
+            return produtoOptional.get()
+                    .stream()
+                    .map(PedidoEntradaProduto::mapToDto)
+                    .toList();
+        }
+        return null;
     }
 }
 

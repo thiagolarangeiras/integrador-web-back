@@ -1,6 +1,5 @@
 package com.github.integrador.infra;
 
-import com.github.integrador.Cliente.Cliente;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -23,8 +23,7 @@ public class VendedorService {
     }
 
     public VendedorGetDto getOne (Integer id) {
-        Optional<Vendedor> vendedorOptional = vendedorRepo.findById(id);
-        Vendedor vendedor = vendedorOptional.orElseThrow();;
+        Vendedor vendedor = vendedorRepo.findById(id).orElse(null);
         return Vendedor.mapToDto(vendedor);
     }
 

@@ -1,9 +1,12 @@
 package com.github.integrador.PedidoSaidaProduto;
 
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/pedido-saida-produto")
@@ -19,11 +22,18 @@ public class PedidoSaidaProdutoController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getAll(
-            @RequestParam int page,
-            @RequestParam int count
+    public ResponseEntity<List<PedidoSaidaProdutoGetDto>> getAll(
+            @RequestParam Integer page,
+            @RequestParam Integer count,
+            @Nullable @RequestParam Integer idPedido
     ) {
-        return ResponseEntity.ok(service.getAll(page, count));
+        List<PedidoSaidaProdutoGetDto> dto;
+        if(idPedido == null){
+            dto = service.getAll(page, count);
+        } else {
+            dto = service.getAllIdPedido(page, count, idPedido);
+        }
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping

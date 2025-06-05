@@ -27,14 +27,15 @@ public class Vendedor {
     //private List<Cliente> clientes;
 
     //Mappers
-    public static VendedorGetDto mapToDto(Vendedor vend) {
+    public static VendedorGetDto mapToDto(Vendedor obj) {
+        if(obj == null) return null;
         return new VendedorGetDto(
-            vend.getId(),
-            vend.getNome(),
-            vend.getDescricao(),
-            vend.getCpf(),
-            vend.getTelefone(),
-            vend.getEmail()
+                obj.getId(),
+                obj.getNome(),
+                obj.getDescricao(),
+                obj.getCpf(),
+                obj.getTelefone(),
+                obj.getEmail()
         );
     }
 

@@ -35,6 +35,7 @@ public class FornecedorService {
     }
 
     public FornecedorGetDto getOne (Integer id) {
+        if (id == null) return null;
         Optional<Fornecedor> fornecedorOptional = fornecedorRepo.findById(id);
         if(fornecedorOptional.isPresent()){
             Fornecedor fornecedor  = fornecedorOptional.get();

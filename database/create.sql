@@ -250,14 +250,14 @@ ALTER TABLE cliente ADD CONSTRAINT fk_cliente1 FOREIGN KEY (id_vendedor) REFEREN
 
 ALTER TABLE pedido_entrada ADD CONSTRAINT fk_pedido_entrada1 FOREIGN KEY (id_fornecedor) REFERENCES fornecedor(id);
 ALTER TABLE pedido_entrada_parcela ADD CONSTRAINT fk_pedido_entrada_parcela1 FOREIGN KEY (id_pedido_entrada) REFERENCES pedido_entrada(id);
-ALTER TABLE pedido_entrada_produto ADD CONSTRAINT fk_pedido_entrada_produto1 FOREIGN KEY (id_pedido_entrada) REFERENCES pedido_entrada(id);
-ALTER TABLE pedido_entrada_produto ADD CONSTRAINT fk_pedido_entrada_produto2 FOREIGN KEY (id_produto) REFERENCES produto(id);
+--ALTER TABLE pedido_entrada_produto ADD CONSTRAINT fk_pedido_entrada_produto1 FOREIGN KEY (id_pedido_entrada) REFERENCES pedido_entrada(id);
+--ALTER TABLE pedido_entrada_produto ADD CONSTRAINT fk_pedido_entrada_produto2 FOREIGN KEY (id_produto) REFERENCES produto(id);
 
 ALTER TABLE pedido_saida ADD CONSTRAINT fk_pedido_saida1 FOREIGN KEY (id_cliente) REFERENCES cliente(id);
 ALTER TABLE pedido_saida ADD CONSTRAINT fk_pedido_saida2 FOREIGN KEY (id_vendedor) REFERENCES vendedor(id);
 ALTER TABLE pedido_saida_parcela ADD CONSTRAINT fk_pedido_saida_parcela1 FOREIGN KEY (id_pedido_saida) REFERENCES pedido_saida(id);
-ALTER TABLE pedido_saida_produto ADD CONSTRAINT fk_pedido_saida_produto1 FOREIGN KEY (id_pedido_saida) REFERENCES pedido_saida(id);
-ALTER TABLE pedido_saida_produto ADD CONSTRAINT fk_pedido_saida_produto2 FOREIGN KEY (id_produto) REFERENCES produto(id);
+--ALTER TABLE pedido_saida_produto ADD CONSTRAINT fk_pedido_saida_produto1 FOREIGN KEY (id_pedido_saida) REFERENCES pedido_saida(id);
+--ALTER TABLE pedido_saida_produto ADD CONSTRAINT fk_pedido_saida_produto2 FOREIGN KEY (id_produto) REFERENCES produto(id);
 
 ALTER TABLE produto ADD CONSTRAINT fk_produto1 FOREIGN KEY (id_fornecedor) REFERENCES fornecedor(id);
 ALTER TABLE produto ADD CONSTRAINT fk_produto2 FOREIGN KEY (id_marca) REFERENCES marca(id);

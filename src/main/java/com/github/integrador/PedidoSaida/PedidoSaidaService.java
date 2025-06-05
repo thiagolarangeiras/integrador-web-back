@@ -1,5 +1,7 @@
 package com.github.integrador.PedidoSaida;
 
+import com.github.integrador.Cliente.ClienteService;
+import com.github.integrador.Vendedor.VendedorService;
 import com.github.integrador.infra.PdfPedidoDados;
 import com.github.integrador.PedidoSaidaParcela.PedidoSaidaParcela;
 import com.github.integrador.PedidoSaidaParcela.PedidoSaidaParcelaRepo;
@@ -11,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +20,8 @@ public class PedidoSaidaService {
     @Autowired private PedidoSaidaRepo repo;
     @Autowired private PedidoSaidaParcelaRepo parcelaRepo;
     @Autowired private PedidoSaidaProdutoRepo produtoRepo;
+    @Autowired private ClienteService clienteService;
+    @Autowired private VendedorService vendedorService;
 
     public List<PedidoSaidaGetDto> getAll (int page, int count) {
         Pageable pageable = PageRequest.of(page, count);
@@ -29,9 +32,12 @@ public class PedidoSaidaService {
     }
 
     public PedidoSaidaGetDto getOne (Integer id) {
-        Optional<PedidoSaida> optional = repo.findById(id);
-        PedidoSaida obj = optional.orElseThrow();;
-        return PedidoSaida.mapToDto(obj);
+        if(id == null) return null;
+        PedidoSaida obj = repo.findById(id).orElse(null);
+        PedidoSaidaGetDto dto = PedidoSaida.mapToDto(obj);
+        dto.cliente = clienteService.getOne(dto.getIdCliente());
+        dto.vendedor = vendedorService.getOne(dto.getIdVendedor());
+        return dto;
     }
 
     public PedidoSaidaGetDto post(PedidoSaidaPostDto dto) {

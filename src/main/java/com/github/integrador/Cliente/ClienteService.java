@@ -63,12 +63,8 @@ public class ClienteService {
     }
 
     public ClienteGetDto getOne (Integer id) {
-        Optional<Cliente> clienteOptional = clienteRepo.findById(id);
-        if (!clienteOptional.isPresent()){
-            //
-        }
-
-        Cliente cliente = clienteOptional.orElseThrow();;
+        if(id == null) return null;
+        Cliente cliente = clienteRepo.findById(id).get();
         return Cliente.mapToDto(cliente);
     }
 

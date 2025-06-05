@@ -58,7 +58,9 @@ public class PedidoSaida {
                 obj.getStatusEntrega(),
                 obj.getStatusPagamento(),
                 obj.getValorTotal(),
-                obj.getValorFrete()
+                obj.getValorFrete(),
+                null,
+                null
         );
     }
 

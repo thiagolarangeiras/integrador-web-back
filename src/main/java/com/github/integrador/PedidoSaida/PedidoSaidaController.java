@@ -1,7 +1,6 @@
 package com.github.integrador.PedidoSaida;
 
 import com.github.integrador.infra.PdfPedidoDados;
-import com.github.integrador.infra.PdfPedidoItens;
 import com.github.integrador.infra.PedidoPdfService;
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfWriter;
@@ -13,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pedido-saida")
@@ -22,8 +22,33 @@ public class PedidoSaidaController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getOne(@PathVariable("id") Integer id) {
+    public ResponseEntity<PedidoSaidaGetDto> getOne(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(service.getOne(id));
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<List<PedidoSaidaGetDto>> getAll(@RequestParam Integer page, @RequestParam Integer count) {
+        return ResponseEntity.ok(service.getAll(page, count));
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Object> post(@RequestBody PedidoSaidaPostDto dto) {
+        return ResponseEntity.ok(service.post(dto));
+    }
+
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<PedidoSaidaGetDto> patch(@PathVariable("id") Integer id, @RequestBody PedidoSaidaPostDto dto) {
+        return ResponseEntity.ok(service.patch(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<PedidoSaidaGetDto> delete(@PathVariable("id") Integer id) {
+        service.delete(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
@@ -38,36 +63,5 @@ public class PedidoSaidaController {
         document.open();
         pdfService.startDocument(document, dados);
         document.close();
-    }
-
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getAll(
-            @RequestParam int page,
-            @RequestParam int count
-    ) {
-        return ResponseEntity.ok(service.getAll(page, count));
-    }
-
-    @PostMapping
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> post(@RequestBody PedidoSaidaPostDto dto) {
-        return ResponseEntity.ok(service.post(dto));
-    }
-
-    @PatchMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> patch(
-            @PathVariable("id") Integer id,
-            @RequestBody PedidoSaidaPostDto dto
-    ) {
-        return ResponseEntity.ok(service.patch(id, dto));
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> delete(@PathVariable("id") Integer id) {
-        service.delete(id);
-        return ResponseEntity.ok().build();
     }
 }

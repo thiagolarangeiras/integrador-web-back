@@ -40,6 +40,7 @@ public class Produto {
 
     //Mappers
     public static ProdutoGetDto mapToDto(Produto obj) {
+        if(obj == null) return null;
         return new ProdutoGetDto(
             obj.getId(),
             obj.getIdFornecedor(),

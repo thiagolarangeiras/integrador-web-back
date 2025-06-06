@@ -39,7 +39,8 @@ public class PedidoEntradaProduto {
             obj.getIdProduto(),
             obj.getQtde(),
             obj.getValorUnitario(),
-            obj.getValorTotal()
+            obj.getValorTotal(),
+                null
         );
     }
 

@@ -49,8 +49,8 @@ public class ProdutoService {
     }
 
     public ProdutoGetDto getOne (Integer id) {
-        Optional<Produto> produtoOptional = produtoRepo.findById(id);
-        Produto produto = produtoOptional.orElseThrow();;
+        if(id == null) return null;
+        Produto produto = produtoRepo.findById(id).orElse(null);
         return Produto.mapToDto(produto);
     }
 

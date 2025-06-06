@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PedidoSaidaService {
@@ -25,10 +24,15 @@ public class PedidoSaidaService {
 
     public List<PedidoSaidaGetDto> getAll (int page, int count) {
         Pageable pageable = PageRequest.of(page, count);
-        return repo.findAll(pageable)
+        List<PedidoSaidaGetDto> dtos = repo.findAll(pageable)
                 .stream()
                 .map(PedidoSaida::mapToDto)
-                .collect(Collectors.toList());
+                .toList();
+        for (PedidoSaidaGetDto dto : dtos){
+            dto.cliente = clienteService.getOne(dto.getIdCliente());
+            dto.vendedor = vendedorService.getOne(dto.getIdVendedor());
+        }
+        return dtos;
     }
 
     public PedidoSaidaGetDto getOne (Integer id) {

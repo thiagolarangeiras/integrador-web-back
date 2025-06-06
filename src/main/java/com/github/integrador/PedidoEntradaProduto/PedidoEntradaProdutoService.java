@@ -1,6 +1,10 @@
 package com.github.integrador.PedidoEntradaProduto;
 
 import com.github.integrador.Fornecedor.Fornecedor;
+import com.github.integrador.PedidoSaidaProduto.PedidoSaidaProduto;
+import com.github.integrador.PedidoSaidaProduto.PedidoSaidaProdutoGetDto;
+import com.github.integrador.Produto.Produto;
+import com.github.integrador.Produto.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,8 +17,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class PedidoEntradaProdutoService {
-    @Autowired
-    private PedidoEntradaProdutoRepo repo;
+    @Autowired private PedidoEntradaProdutoRepo repo;
+    @Autowired private ProdutoService produtoService;
 
     public List<PedidoEntradaProdutoGetDto> getAll (int page, int count) {
         Pageable pageable = PageRequest.of(page, count);
@@ -22,6 +26,18 @@ public class PedidoEntradaProdutoService {
                 .stream()
                 .map(PedidoEntradaProduto::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    public List<PedidoEntradaProdutoGetDto> getAllIdPedido (Integer page, Integer count, Integer idPedido) {
+        Pageable pageable = PageRequest.of(page, count);
+        List<PedidoEntradaProdutoGetDto> dtos = repo.findByPedido(idPedido, pageable)
+                .stream()
+                .map(PedidoEntradaProduto::mapToDto)
+                .toList();
+        for(PedidoEntradaProdutoGetDto dto : dtos){
+            dto.produto = produtoService.getOne(dto.idProduto);
+        }
+        return dtos;
     }
 
     public PedidoEntradaProdutoGetDto getOne (Integer id) {

@@ -15,10 +15,14 @@ public class PedidoEntradaService {
 
     public List<PedidoEntradaGetDto> getAll(Integer page, Integer count) {
         Pageable pageable = PageRequest.of(page, count);
-        return repo.findAll(pageable)
+        List<PedidoEntradaGetDto> dtos = repo.findAll(pageable)
                 .stream()
                 .map(PedidoEntrada::mapToDto)
                 .toList();
+        for (PedidoEntradaGetDto dto : dtos){
+            dto.fornecedor = fornecedorService.getOne(dto.getIdFornecedor());
+        }
+        return dtos;
     }
 
     public PedidoEntradaGetDto getOne (Integer id) {

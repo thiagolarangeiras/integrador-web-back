@@ -1,50 +1,57 @@
 package com.github.integrador.PedidoEntradaProduto;
 
+import com.github.integrador.PedidoSaidaProduto.PedidoSaidaProdutoGetDto;
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/pedido-entrada-produto")
 public class PedidoEntradaProdutoController {
-    @Autowired
-    private PedidoEntradaProdutoService pedidoEntradaProduto;
+    @Autowired private PedidoEntradaProdutoService service;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getOne(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(pedidoEntradaProduto.getOne(id));
+    public ResponseEntity<PedidoEntradaProdutoGetDto> getOne(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(service.getOne(id));
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getAll(
+    public ResponseEntity<List<PedidoEntradaProdutoGetDto>> getAll(
             @RequestParam int page,
-            @RequestParam int count
+            @RequestParam int count,
+            @Nullable @RequestParam Integer idPedido
     ) {
-        return ResponseEntity.ok(pedidoEntradaProduto.getAll(page, count));
+        List<PedidoEntradaProdutoGetDto> dto;
+        if(idPedido == null){
+            dto = service.getAll(page, count);
+        } else {
+            dto = service.getAllIdPedido(page, count, idPedido);
+        }
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> post(@RequestBody PedidoEntradaProdutoPostDto dto) {
-        return ResponseEntity.ok(pedidoEntradaProduto.post(dto));
+    public ResponseEntity<PedidoEntradaProdutoGetDto> post(@RequestBody PedidoEntradaProdutoPostDto dto) {
+        return ResponseEntity.ok(service.post(dto));
     }
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> patch(
-            @PathVariable("id") Integer id,
-            @RequestBody PedidoEntradaProdutoPostDto dto
-    ) {
-        return ResponseEntity.ok(pedidoEntradaProduto.patch(id, dto));
+    public ResponseEntity<PedidoEntradaProdutoGetDto> patch(@PathVariable("id") Integer id, @RequestBody PedidoEntradaProdutoPostDto dto) {
+        return ResponseEntity.ok(service.patch(id, dto));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> delete(@PathVariable("id") Integer id) {
-        pedidoEntradaProduto.delete(id);
+    public ResponseEntity<PedidoEntradaProdutoGetDto> delete(@PathVariable("id") Integer id) {
+        service.delete(id);
         return ResponseEntity.ok().build();
     }
 }

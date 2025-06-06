@@ -28,6 +28,7 @@ public class Fornecedor {
 
     //Mappers
     public static FornecedorGetDto mapToDto(Fornecedor obj) {
+        if(obj == null) return null;
         return new FornecedorGetDto(
                 obj.getId(),
                 obj.getNome(),

@@ -30,9 +30,14 @@ public class SecurityConfiguration {
             "/cliente/**",
             "/fornecedor/**",
             "/marca/**",
-            "/pedido/**",
             "/produto/**",
             "/vendedor/**",
+            "/pedido-saida/**",
+            "/pedido-saida-produto/**",
+            "/pedido-saida-parcela/**",
+            "/pedido-entrada/**",
+            "/pedido-entrada-produto/**",
+            "/pedido-entrada-parcela/**",
     };
 
     public static final String[] AUTH_CARGO_ADM = {
@@ -75,7 +80,6 @@ public class SecurityConfiguration {
                         .requestMatchers(AUTH_REQUIRED).authenticated()
                         .requestMatchers(AUTH_CARGO_ADM).hasAuthority(Cargo.adm.name())
                         .requestMatchers(AUTH_CARGO_VENDEDOR).hasAuthority(Cargo.vendedor.name())
-                        //.requestMatchers(AUTH_CARGO_VENDEDOR).hasRole(Cargo.vendedor.name())  // Role nao funciona nesse caso
                         .anyRequest().permitAll()
                 )
                 .build();

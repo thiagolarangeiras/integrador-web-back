@@ -25,6 +25,7 @@ DROP TABLE pedido_saida_produto;
 DROP TABLE produto;
 DROP TABLE usuario;
 DROP TABLE vendedor;
+DROP TABLE dados_empresa;
 
 -- Drop sequence
 DROP SEQUENCE cliente_id_seq;
@@ -39,3 +40,4 @@ DROP SEQUENCE pedido_saida_produto_id_seq;
 DROP SEQUENCE produto_id_seq;
 DROP SEQUENCE usuario_id_seq;
 DROP SEQUENCE vendedor_id_seq;
+DROP SEQUENCE dados_empresa_id_se

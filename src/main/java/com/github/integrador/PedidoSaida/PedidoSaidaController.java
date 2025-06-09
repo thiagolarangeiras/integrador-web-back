@@ -1,7 +1,7 @@
 package com.github.integrador.PedidoSaida;
 
-import com.github.integrador.infra.PdfPedidoDados;
-import com.github.integrador.infra.PedidoPdfService;
+import com.github.integrador.PedidoSaida.pdf.PdfPedidoDados;
+import com.github.integrador.PedidoSaida.pdf.PedidoPdfService;
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfWriter;
 import jakarta.servlet.http.HttpServletResponse;

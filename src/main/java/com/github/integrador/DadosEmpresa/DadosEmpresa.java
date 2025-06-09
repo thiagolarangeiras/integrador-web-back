@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "dados-empresa")
+@Table(name = "dados_empresa")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +20,7 @@ public class DadosEmpresa {
 
     private String nome;
     private String cnpj;
+    private String ie;
     private String email;
     private String telefone;
 
@@ -33,10 +34,12 @@ public class DadosEmpresa {
 
     //Mappers
     public static DadosEmpresaGetDto mapToDto(DadosEmpresa obj) {
+        if(obj == null) return null;
         return new DadosEmpresaGetDto(
                 obj.getId(),
                 obj.getNome(),
                 obj.getCnpj(),
+                obj.getIe(),
                 obj.getEmail(),
                 obj.getTelefone(),
                 obj.getCep(),
@@ -53,6 +56,7 @@ public class DadosEmpresa {
         DadosEmpresa obj = new DadosEmpresa();
         obj.setNome(dto.getNome());
         obj.setCnpj(dto.getCnpj());
+        obj.setIe(dto.getIe());
         obj.setEmail(dto.getEmail());
         obj.setTelefone(dto.getTelefone());
         obj.setCep(dto.getCep());

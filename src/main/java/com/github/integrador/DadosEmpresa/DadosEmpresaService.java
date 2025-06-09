@@ -1,63 +1,32 @@
 package com.github.integrador.DadosEmpresa;
 
-import com.github.integrador.Fornecedor.Fornecedor;
-import com.github.integrador.Fornecedor.FornecedorGetDto;
-import com.github.integrador.Fornecedor.FornecedorPostDto;
-import com.github.integrador.Fornecedor.FornecedorRepo;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class DadosEmpresaService {
     @Autowired private DadosEmpresaRepo repo;
 
-    public List<FornecedorGetDto> getAll (int page, int count) {
-        Pageable pageable = PageRequest.of(page, count);
-        return repo.findAll(pageable)
-                .stream()
-                .map(Fornecedor::mapToDto)
-                .collect(Collectors.toList());
+    public DadosEmpresaGetDto get() {
+        DadosEmpresa obj = repo.findById(1).orElse(null);
+        return DadosEmpresa.mapToDto(obj);
     }
 
-    public List<FornecedorGetDto> getAllFilter (Integer page, Integer count, String nome) {
-        Pageable pageable = PageRequest.of(page, count);
-        return repo.findByNomeContaining(nome, pageable)
-                .orElseThrow()
-                .stream()
-                .map(Fornecedor::mapToDto)
-                .toList();
-    }
-
-    public FornecedorGetDto getOne (Integer id) {
-        Optional<Fornecedor> fornecedorOptional = fornecedorRepo.findById(id);
-        if(fornecedorOptional.isPresent()){
-            Fornecedor fornecedor  = fornecedorOptional.get();
-            return Fornecedor.mapToDto(fornecedor);
+    public DadosEmpresaGetDto post(DadosEmpresaPostDto dto) {
+        DadosEmpresa obj = obj = DadosEmpresa.mapToObj(dto);
+        obj.setId(1);
+        try {
+            obj = repo.save(obj);
+        } catch (Exception e){
+            obj.setId(null);
+            obj = repo.save(obj);
         }
-        return null;
+
+        return DadosEmpresa.mapToDto(obj);
     }
 
-    public FornecedorGetDto post(FornecedorPostDto dto) {
-        Fornecedor fornecedor = Fornecedor.mapToObj(dto);
-        fornecedor = fornecedorRepo.save(fornecedor);
-        return Fornecedor.mapToDto(fornecedor);
-    }
-
-    public FornecedorGetDto patch(Integer id, FornecedorPostDto dto) {
-        Fornecedor fornecedor = fornecedorRepo.findById(id).orElseThrow();
-        fornecedor = Fornecedor.mapToObj(dto);
-        fornecedor.setId(id);
-        fornecedor = fornecedorRepo.save(fornecedor);
-        return Fornecedor.mapToDto(fornecedor);
-    }
-
-    public void delete(Integer id) {
-        fornecedorRepo.deleteById(id);
+    public DadosEmpresaGetDto patch(DadosEmpresaPostDto dto) {
+        return post(dto);
     }
 }

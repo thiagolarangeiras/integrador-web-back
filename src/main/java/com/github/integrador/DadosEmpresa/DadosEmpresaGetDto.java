@@ -13,6 +13,7 @@ public class DadosEmpresaGetDto {
 
     private String nome;
     private String cnpj;
+    private String ie;
     private String email;
     private String telefone;
 

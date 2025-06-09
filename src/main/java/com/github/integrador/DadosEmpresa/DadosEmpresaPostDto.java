@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class DadosEmpresaPostDto {
     private String nome;
     private String cnpj;
+    private String ie;
     private String email;
     private String telefone;
 

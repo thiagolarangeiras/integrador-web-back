@@ -1,4 +1,4 @@
-package com.github.integrador.infra;
+package com.github.integrador.PedidoSaida.pdf;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

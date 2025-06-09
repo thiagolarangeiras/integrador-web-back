@@ -1,8 +1,5 @@
 package com.github.integrador.DadosEmpresa;
 
-import com.github.integrador.Cliente.ClientePostDto;
-import com.github.integrador.Cliente.ClienteService;
-import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,45 +8,23 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/dados-empresa")
 public class DadosEmpresaController{
-    @Autowired private ClienteService clienteService;
-
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getOne(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(clienteService.getOne(id));
-    }
+    @Autowired private DadosEmpresaService service;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> getAll(
-            @RequestParam Integer page,
-            @RequestParam Integer count,
-            @Nullable @RequestParam String nome
-    ) {
-        if (nome == null || nome.isBlank())
-            return ResponseEntity.ok(clienteService.getAll(page, count));
-        return ResponseEntity.ok(clienteService.getAllFilter(page, count, nome));
+    public ResponseEntity<DadosEmpresaGetDto> get() {
+        return ResponseEntity.ok(service.get());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> post(@RequestBody ClientePostDto dto) {
-        return ResponseEntity.ok(clienteService.post(dto));
+    public ResponseEntity<DadosEmpresaGetDto> post(@RequestBody DadosEmpresaPostDto dto) {
+        return ResponseEntity.ok(service.post(dto));
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> patch(
-            @PathVariable("id") Integer id,
-            @RequestBody ClientePostDto dto
-    ) {
-        return ResponseEntity.ok(clienteService.patch(id, dto));
-    }
-
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Object> delete(@PathVariable("id") Integer id) {
-        clienteService.delete(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<DadosEmpresaGetDto> patch(@RequestBody DadosEmpresaPostDto dto) {
+        return ResponseEntity.ok(service.patch(dto));
     }
 }

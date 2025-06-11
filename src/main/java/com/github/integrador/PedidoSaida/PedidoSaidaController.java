@@ -1,7 +1,6 @@
 package com.github.integrador.PedidoSaida;
 
 import com.github.integrador.PedidoSaida.pdf.PdfPedidoDados;
-import com.github.integrador.PedidoSaida.pdf.PedidoPdfService;
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfWriter;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,7 +17,6 @@ import java.util.List;
 @RequestMapping("/pedido-saida")
 public class PedidoSaidaController {
     @Autowired private PedidoSaidaService service;
-    @Autowired private PedidoPdfService pdfService;
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -54,14 +52,13 @@ public class PedidoSaidaController {
     @GetMapping(value = "/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public void gerarPdf(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException {
-        PdfPedidoDados dados = service.getDadosPdf(id);
-
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=\"arquivo.pdf\"");
-        Document document = new Document();
-        PdfWriter.getInstance(document, response.getOutputStream());
-        document.open();
-        pdfService.startDocument(document, dados);
-        document.close();
+        response.setHeader("Content-Disposition", "attachment; filename=\"pedido.pdf\"");
+        var doc = new Document();
+        PdfWriter.getInstance(doc, response.getOutputStream());
+        doc.open();
+        PdfPedidoDados dados = service.getDadosPdf(id);
+        service.documento1(doc, dados);
+        doc.close();
     }
 }

@@ -11,10 +11,9 @@ import com.github.integrador.PedidoSaida.pdf.PdfPedidoDados;
 import com.github.integrador.PedidoSaidaParcela.PedidoSaidaParcela;
 import com.github.integrador.PedidoSaidaParcela.PedidoSaidaParcelaRepo;
 import com.github.integrador.enums.TipoCliente;
-import com.lowagie.text.Document;
-import com.lowagie.text.Element;
+import com.lowagie.text.*;
 import com.lowagie.text.Font;
-import com.lowagie.text.Paragraph;
+import com.lowagie.text.Image;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.text.MaskFormatter;
 import java.awt.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,15 +82,16 @@ public class PedidoSaidaService {
         List<PedidoSaidaProdutoGetDto> produtos = produtoService.getAllIdPedido(0, 200, id);
         DadosEmpresaGetDto empresa = dadosEmpresaService.get();
         PdfPedidoDados pdf = new PdfPedidoDados();
-        pdf.nomeEmpresa = empresa.getNome();
 
+        pdf.codigo = pedido.id.toString();
+        pdf.nomeEmpresa = empresa.getNome();
         try {
             MaskFormatter mask = new MaskFormatter("###.###.###/####-##");
             mask.setValueContainsLiteralCharacters(false);
             String cnpjFor = mask.valueToString(empresa.getCnpj());
-            pdf.cnpjEmpresa = String.format("CNPJ: %s IE: %s", cnpjFor, empresa.getId());
+            pdf.cnpjEmpresa = String.format("%s", cnpjFor);
         } catch (Exception e) {
-            pdf.cnpjEmpresa = String.format("CNPJ: %s IE: %s", empresa.getCnpj(), empresa.getId());
+            pdf.cnpjEmpresa = String.format("%s", empresa.getCnpj());
         }
 
         pdf.emailEmpresa = empresa.getEmail();
@@ -99,56 +100,57 @@ public class PedidoSaidaService {
             MaskFormatter mask = new MaskFormatter("(##) # ####-####");
             mask.setValueContainsLiteralCharacters(false);
             String format = mask.valueToString(empresa.getTelefone());
-            pdf.telefoneEmpresa = String.format("Telefone: %s", format);
+            pdf.telefoneEmpresa = String.format("%s", format);
         } catch (Exception e) {
-            pdf.telefoneEmpresa = String.format("Telefone: %s", empresa.getTelefone());
+            pdf.telefoneEmpresa = String.format("%s", empresa.getTelefone());
         }
 
-        pdf.nomeClienteEmpresa = String.format("Cliente: %s", pedido.cliente.nomeEmpresa());
+        pdf.nomeClienteEmpresa = String.format("%s", pedido.cliente.nomeEmpresa());
 
         if(pedido.cliente.tipo() == TipoCliente.pessoaFisica){
             try {
                 MaskFormatter mask = new MaskFormatter("###.###.###-##");
                 mask.setValueContainsLiteralCharacters(false);
                 String cpfFor = mask.valueToString(pedido.cliente.cpfCnpj());
-                pdf.cnpjCliente = String.format("CPF: %s", cpfFor);
+                pdf.cnpjCliente = String.format("%s", cpfFor);
             } catch (Exception e) {
-                pdf.cnpjEmpresa = String.format("CPF: %s", pedido.cliente.cpfCnpj());
+                pdf.cnpjCliente = String.format("%s", pedido.cliente.cpfCnpj());
             }
         } else {
             try {
                 MaskFormatter mask = new MaskFormatter("###.###.###/####-##");
                 mask.setValueContainsLiteralCharacters(false);
                 String cnpjFor = mask.valueToString(pedido.cliente.cpfCnpj());
-                pdf.cnpjCliente = String.format("CNPJ: %s", cnpjFor);
+                pdf.cnpjCliente = String.format("%s", cnpjFor);
             } catch (Exception e) {
-                pdf.cnpjEmpresa = String.format("CNPJ: %s", pedido.cliente.cpfCnpj());
+                pdf.cnpjCliente = String.format("%s", pedido.cliente.cpfCnpj());
             }
         }
 
-        pdf.enderecoCliente = String.format("Endereço: %s, %s, %s - %s/%s - ",
+        pdf.enderecoCliente = String.format("%s %s, %s, %s %s-%s",
+                pedido.cliente.cep(),
                 pedido.cliente.rua(),
                 pedido.cliente.numero(),
                 pedido.cliente.bairro(),
                 pedido.cliente.cidade(),
-                pedido.cliente.estado().name(),
-                pedido.cliente.cep()
+                pedido.cliente.estado().name()
         );
 
-        pdf.emailCliente = String.format("E-mail: %s", pedido.cliente.email());
+        pdf.emailCliente = String.format("%s", pedido.cliente.email());
 
         try {
             MaskFormatter mask = new MaskFormatter("(##) # ####-####");
             mask.setValueContainsLiteralCharacters(false);
             String format = mask.valueToString(pedido.cliente.telefone());
-            pdf.telefoneCliente = String.format("Telefone: %s", format);
+            pdf.telefoneCliente = String.format("%s", format);
         } catch (Exception e) {
-            pdf.telefoneCliente = String.format("Telefone: %s", pedido.cliente.telefone());
+            pdf.telefoneCliente = String.format("%s", pedido.cliente.telefone());
         }
 
-        pdf.dataPedido = "Data: 05/02/2025 - 13:00";
-        pdf.nomeVendedor = String.format("Vendador: %s", pedido.vendedor.nome());
-        pdf.nomeCliente = String.format("Cliente: %s", pedido.cliente.nome());
+
+        pdf.dataPedido = new SimpleDateFormat("dd/MM/yyyy").format(pedido.dataVigencia);
+        pdf.nomeVendedor = String.format("%s", pedido.vendedor.nome());
+        pdf.nomeCliente = String.format("%s", pedido.cliente.nome());
         pdf.condicaoPagamento = "Condição de Pagamento: Carteira 01X";
 
         pdf.itens = new ArrayList<PdfPedidoItens>();
@@ -157,10 +159,9 @@ public class PedidoSaidaService {
             PdfPedidoItens pdfItem = new PdfPedidoItens();
             pdfItem.codigo = prod.getProduto().id().toString();
             pdfItem.descricao = prod.getProduto().nome();
-            pdfItem.situacaoTributaria = "";
             pdfItem.quantidade = prod.getQtde().toString();
-            pdfItem.valorUnitario = prod.getValorUnitario().toString();
-            pdfItem.valorTotal = prod.getValorTotal().toString();
+            pdfItem.valorUnitario = String.format("%.2f", prod.getValorUnitario());
+            pdfItem.valorTotal = String.format("%.2f", prod.getValorTotal());
             pdf.itens.add(pdfItem);
         }
 
@@ -170,25 +171,34 @@ public class PedidoSaidaService {
 
     public static void documento1(Document document, PdfPedidoDados dados){
         try {
-            Font fontTitulo = new Font(Font.HELVETICA, 16, Font.BOLD);
-            Font fontNormal = new Font(Font.HELVETICA, 12, Font.NORMAL);
-            Font fontItem = new Font(Font.HELVETICA, 10, Font.NORMAL);
+            Font fontTitulo = new Font(Font.HELVETICA, 14, Font.BOLD);
+            Font fontGrandeB = new Font(Font.HELVETICA, 12, Font.BOLD);
+            Font fontGrande = new Font(Font.HELVETICA, 12, Font.NORMAL);
+            Font fontMediaB = new Font(Font.HELVETICA, 10, Font.BOLD);
+            Font fontMedia = new Font(Font.HELVETICA, 10, Font.NORMAL);
+            Font fontPequena = new Font(Font.HELVETICA, 8, Font.NORMAL);
+
+            // Tabela dados Empresa
             {
                 PdfPCell cellEmpresa = new PdfPCell();
-                cellEmpresa.setBorderWidth(1f);
+                cellEmpresa.setBorderWidth(0f);
                 cellEmpresa.setPadding(10f);
-                cellEmpresa.setBorderColor(new Color(0, 0, 0));
+                cellEmpresa.setPaddingTop(0f);
+                //cellEmpresa.setBorderColor(new Color(0, 0, 0));
+
+                Image img = Image.getInstance("./logo.jpg");
+                img.setAlignment(Image.ALIGN_CENTER);
 
                 Paragraph p1 = new Paragraph(dados.nomeEmpresa, fontTitulo);
                 p1.setAlignment(Element.ALIGN_CENTER);
 
-                Paragraph p2 = new Paragraph(dados.cnpjEmpresa, fontNormal);
+                Paragraph p2 = new Paragraph(dados.cnpjEmpresa, fontGrande);
                 p2.setAlignment(Element.ALIGN_CENTER);
 
-                Paragraph p3 = new Paragraph(dados.telefoneEmpresa, fontNormal);
+                Paragraph p3 = new Paragraph(dados.telefoneEmpresa, fontGrande);
                 p3.setAlignment(Element.ALIGN_CENTER);
 
-                Paragraph p4 = new Paragraph(dados.emailEmpresa, fontNormal);
+                Paragraph p4 = new Paragraph(dados.emailEmpresa, fontGrande);
                 p4.setAlignment(Element.ALIGN_CENTER);
 
                 cellEmpresa.addElement(p1);
@@ -196,59 +206,96 @@ public class PedidoSaidaService {
                 cellEmpresa.addElement(p3);
                 cellEmpresa.addElement(p4);
 
-                PdfPTable table = new PdfPTable(1);
+                PdfPTable table = new PdfPTable(2);
                 table.setWidthPercentage(100);
+                table.setWidths(new float[]{2, 12});
+                table.addCell(img);
                 table.addCell(cellEmpresa);
                 document.add(table);
             }
+
+            //Titulo dados Cliente
             {
-                Paragraph p1 = new Paragraph("Cliente", fontTitulo);
+                Paragraph p1 = new Paragraph("Cliente", fontGrandeB);
                 p1.setSpacingAfter(5);
                 document.add(p1);
             }
+
+            //Tabela Dados Cliente
             {
-                PdfPCell cellCliente = new PdfPCell();
-                cellCliente.setBorderWidth(1f);
-                cellCliente.setPadding(10f);
-                cellCliente.setPaddingTop(0f);
-                cellCliente.setBorderColor(new Color(0, 0, 0));
-
-                Paragraph p1 = new Paragraph(dados.nomeCliente, fontTitulo);
-                //p1.setAlignment(Element.ALIGN_CENTER);
-
-                Paragraph p2 = new Paragraph(dados.cnpjCliente, fontNormal);
-                //p2.setAlignment(Element.ALIGN_CENTER);
-
-                Paragraph p3 = new Paragraph(dados.enderecoCliente, fontNormal);
-                //p3.setAlignment(Element.ALIGN_CENTER);
-
-                Paragraph p4 = new Paragraph(dados.emailCliente, fontNormal);
-                //p4.setAlignment(Element.ALIGN_CENTER);
-
-                Paragraph p5 = new Paragraph(dados.telefoneCliente, fontNormal);
-                //p5.setAlignment(Element.ALIGN_CENTER);
-
-                Paragraph p6 = new Paragraph(dados.dataPedido, fontNormal);
-                //p6.setAlignment(Element.ALIGN_CENTER);
-
-                Paragraph p7 = new Paragraph(dados.nomeVendedor, fontNormal);
-                //p7.setAlignment(Element.ALIGN_CENTER);
-
-                cellCliente.addElement(p1);
-                cellCliente.addElement(p2);
-                cellCliente.addElement(p3);
-                cellCliente.addElement(p4);
-                cellCliente.addElement(p5);
-                cellCliente.addElement(p6);
-                cellCliente.addElement(p7);
-
-                PdfPTable table = new PdfPTable(1);
+                PdfPTable table = new PdfPTable(4);
                 table.setWidthPercentage(100);
-                table.addCell(cellCliente);
+
+                var p1 = new PdfPCell();
+                p1.addElement(new Phrase("Nome:", fontPequena));
+                p1.addElement(new Phrase(dados.nomeCliente, fontGrandeB));
+                p1.setColspan(3);
+                p1.setUseAscender(true);
+                p1.setUseDescender(true);
+                p1.setPadding(2);
+
+                var p2 = new PdfPCell();
+                p2.addElement(new Phrase("Código:", fontMedia));
+                p2.addElement(new Phrase(dados.codigo, fontGrandeB));
+                p2.setUseAscender(true);
+                p2.setUseDescender(true);
+                p2.setPadding(2);
+
+                var p3 = new PdfPCell();
+                p3.addElement(new Phrase("CNPJ/CPF:", fontPequena));
+                p3.addElement(new Phrase(dados.cnpjCliente, fontMedia));
+                p3.setUseAscender(true);
+                p3.setUseDescender(true);
+                p3.setPadding(2);
+
+                var p4 = new PdfPCell();
+                p4.addElement(new Phrase("E-Mail:", fontPequena));
+                p4.addElement(new Phrase(dados.emailCliente, fontMedia));
+                p4.setUseAscender(true);
+                p4.setUseDescender(true);
+                p4.setPadding(2);
+
+                var p5 = new PdfPCell();
+                p5.addElement(new Phrase("Telefone:", fontPequena));
+                p5.addElement(new Phrase(dados.telefoneCliente, fontMedia));
+                p5.setUseAscender(true);
+                p5.setUseDescender(true);
+                p5.setPadding(2);
+
+                var p6 = new PdfPCell();
+                p6.addElement(new Phrase("Data:", fontPequena));
+                p6.addElement(new Phrase(dados.dataPedido, fontMedia));
+                p6.setUseAscender(true);
+                p6.setUseDescender(true);
+                p6.setPadding(2);
+
+                var p7 = new PdfPCell();
+                p7.addElement(new Phrase("Endereço:", fontPequena));
+                p7.addElement(new Phrase(dados.enderecoCliente, fontMedia));
+                p7.setUseAscender(true);
+                p7.setUseDescender(true);
+                p7.setPadding(2);
+                p7.setColspan(3);
+
+                var p8 = new PdfPCell();
+                p8.addElement(new Phrase("Vendedor:", fontPequena));
+                p8.addElement(new Phrase(dados.nomeVendedor, fontMedia));
+                p8.setUseAscender(true);
+                p8.setUseDescender(true);
+                p8.setPadding(2);
+
+                table.addCell(p1);
+                table.addCell(p2);
+                table.addCell(p3);
+                table.addCell(p4);
+                table.addCell(p5);
+                table.addCell(p6);
+                table.addCell(p7);
+                table.addCell(p8);
                 document.add(table);
             }
             {
-                Paragraph p1 = new Paragraph("Itens:", fontTitulo);
+                Paragraph p1 = new Paragraph("Itens:", fontGrandeB);
                 p1.setSpacingAfter(5);
                 document.add(p1);
             }
@@ -257,70 +304,61 @@ public class PedidoSaidaService {
                 table.setWidths(new float[]{1, 2, 10, 2, 2, 2});
                 table.setWidthPercentage(100);
 
-                Paragraph p1 = new Paragraph("#", fontItem);
+                Paragraph p1 = new Paragraph("#", fontMedia);
                 p1.setAlignment(Element.ALIGN_RIGHT);
                 table.addCell(p1);
 
-                Paragraph p2 = new Paragraph("Código", fontItem);
+                Paragraph p2 = new Paragraph("Código", fontMedia);
                 p2.setAlignment(Element.ALIGN_RIGHT);
                 table.addCell(p2);
 
-                Paragraph p3 = new Paragraph("Descrição", fontItem);
+                Paragraph p3 = new Paragraph("Descrição", fontMedia);
                 table.addCell(p3);
 
-                Paragraph p4 = new Paragraph("Qtde.", fontItem);
+                Paragraph p4 = new Paragraph("Qtde.", fontMedia);
                 p4.setAlignment(Element.ALIGN_RIGHT);
                 table.addCell(p4);
 
-                Paragraph p6 = new Paragraph("Valor Unid", fontItem);
+                Paragraph p6 = new Paragraph("Valor Unid", fontMedia);
                 p6.setAlignment(Element.ALIGN_RIGHT);
                 table.addCell(p6);//.setHorizontalAlignment(Element.ALIGN_RIGHT);
 
-                Paragraph p7 = new Paragraph("Total", fontItem);
+                Paragraph p7 = new Paragraph("Total", fontMedia);
                 p7.setAlignment(Element.ALIGN_RIGHT);
                 table.addCell(p7);
 
                 Integer i = 1;
                 for (PdfPedidoItens item : dados.itens) {
-                    Paragraph pi1 = new Paragraph(i.toString(), fontItem);
+                    Paragraph pi1 = new Paragraph(i.toString(), fontMedia);
                     pi1.setAlignment(Element.ALIGN_RIGHT);
                     table.addCell(pi1);
 
-                    Paragraph pi2 = new Paragraph(item.codigo, fontItem);
+                    Paragraph pi2 = new Paragraph(item.codigo, fontMedia);
                     pi2.setAlignment(Element.ALIGN_RIGHT);
                     table.addCell(pi2);
 
-                    Paragraph pi3 = new Paragraph(item.descricao, fontItem);
+                    Paragraph pi3 = new Paragraph(item.descricao, fontMedia);
                     table.addCell(pi3);
 
-                    Paragraph pi4 = new Paragraph(item.quantidade, fontItem);
+                    Paragraph pi4 = new Paragraph(item.quantidade, fontMedia);
                     pi4.setAlignment(Element.ALIGN_RIGHT);
                     table.addCell(pi4);
 
-                    Paragraph pi5 = new Paragraph(item.valorUnitario, fontItem);
+                    Paragraph pi5 = new Paragraph(item.valorUnitario, fontMedia);
                     pi5.setAlignment(Element.ALIGN_RIGHT);
                     table.addCell(pi5);
 
-                    Paragraph pi6 = new Paragraph(item.valorTotal, fontItem);
+                    Paragraph pi6 = new Paragraph(item.valorTotal, fontMedia);
                     pi6.setAlignment(Element.ALIGN_RIGHT);
                     table.addCell(pi6);
 
                     i++;
                 }
                 document.add(table);
-                Paragraph p = new Paragraph(dados.valorTotal, fontTitulo);
+                Paragraph p = new Paragraph(dados.valorTotal, fontGrandeB);
                 p.setAlignment(Element.ALIGN_RIGHT);
                 document.add(p);
             }
-
-            //document.add(new Paragraph(dados.condicaoPagamento, fontNormal));
-
-            PdfPTable tabelaAssinatura = new PdfPTable(2);
-            tabelaAssinatura.setWidthPercentage(100);
-            tabelaAssinatura.addCell(dados.nomeVendedor);
-            tabelaAssinatura.addCell(dados.nomeCliente);
-
-            document.add(tabelaAssinatura);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -2,6 +2,7 @@ package com.github.integrador.PedidoSaida;
 
 import com.github.integrador.PedidoSaida.pdf.PdfPedidoDados;
 import com.lowagie.text.Document;
+import com.lowagie.text.PageSize;
 import com.lowagie.text.pdf.PdfWriter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class PedidoSaidaController {
     public void gerarPdf(@PathVariable("id") Integer id, HttpServletResponse response) throws IOException {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=\"pedido.pdf\"");
-        var doc = new Document();
+        var doc = new Document(PageSize.A4, 20f, 20f, 20f, 20f);
         PdfWriter.getInstance(doc, response.getOutputStream());
         doc.open();
         PdfPedidoDados dados = service.getDadosPdf(id);

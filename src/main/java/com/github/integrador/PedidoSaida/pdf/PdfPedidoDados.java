@@ -8,6 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PdfPedidoDados {
+    public String codigo = "";
     public String nomeEmpresa = "EMPRESA LTDA";
     public String cnpjEmpresa = "CNPJ: 99.999.999/0001-99 IE: 123456789";
     public String emailEmpresa = "email@email.com.br | www.email.com.br";

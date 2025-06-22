@@ -24,6 +24,7 @@ public class Marca {
 
     //Mappers
     public static MarcaGetDto mapToDto(Marca obj) {
+        if(obj == null) return null;
         return new MarcaGetDto(
             obj.getId(),
             obj.getNome()

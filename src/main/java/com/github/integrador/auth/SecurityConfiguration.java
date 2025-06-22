@@ -28,6 +28,7 @@ public class SecurityConfiguration {
     public static final String[] AUTH_REQUIRED = {
             "/teste/login",
             "/cliente/**",
+            "/dados-empresa/**",
             "/fornecedor/**",
             "/marca/**",
             "/produto/**",
